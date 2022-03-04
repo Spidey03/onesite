@@ -8,7 +8,7 @@ from market.tests.common_fixtures.factories import UserDetailsDTOFactory
 from market.tests.common_fixtures.reset_sequence import reset
 
 
-class TestGetUserDetailsStorage(TestCase):
+class TestGetUserDetailsStorage:
     @pytest.fixture(autouse=True)
     def storage(self):
         storage = UserStorageImplementation()
