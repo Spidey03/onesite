@@ -1,5 +1,7 @@
 import abc
 
+from market.interactors.storages.dtos import UserDetailsDTO
+
 
 class UserStorageInterface(abc.ABC):
 
