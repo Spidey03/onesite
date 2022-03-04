@@ -1,4 +1,5 @@
 import datetime
+from unittest import TestCase
 
 import pytest
 
@@ -7,13 +8,13 @@ from market.tests.common_fixtures.factories import UserDetailsDTOFactory
 from market.tests.common_fixtures.reset_sequence import reset
 
 
-class TestGetUserDetailsStorage:
-    @pytest.fixture
+class TestGetUserDetailsStorage(TestCase):
+    @pytest.fixture(autouse=True)
     def storage(self):
         storage = UserStorageImplementation()
         return storage
 
-    @pytest.fixture
+    @pytest.fixture(autouse=True)
     def users_db(self):
         reset()
         from market.tests.common_fixtures.model_factories import UserModelFactory

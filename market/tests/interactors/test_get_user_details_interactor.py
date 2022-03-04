@@ -27,10 +27,6 @@ class TestGetUserDetailsInteractor:
         reset()
         return UserDetailsDTOFactory(id=USER_ID)
 
-    @pytest.fixture
-    def expected_response(self):
-        return
-
     def test_user_not_found(self, storage, presenter):
         # Arrange
         from market.exceptions.exceptions import UserNotFoundException
