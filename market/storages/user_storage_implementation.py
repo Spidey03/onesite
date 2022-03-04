@@ -5,4 +5,8 @@ from market.interactors.storages.user_storages_interface import UserStorageInter
 class UserStorageImplementation(UserStorageInterface):
 
     def get_user(self, user_id: str) -> UserDetailsDTO:
-        pass
+        from market.models import User
+        from market.exceptions.exceptions import UserNotFoundException
+
+        if not User.objects.filter(id=user_id).exists():
+            raise UserNotFoundException()
