@@ -12,14 +12,11 @@ class GetUserDetailsInteractor:
             self, user_id: str,
             presenter: PresenterInterface
     ):
-        response = ""
         try:
             user_details_dto = self._get_user_details(user_id=user_id)
-            response = presenter.get_user_details(user_details_dto=user_details_dto)
+            return presenter.get_user_details(user_details_dto=user_details_dto)
         except UserNotFoundException:
-            response = presenter.get_user_not_found_response(user_id=user_id)
-        finally:
-            return response
+            return presenter.get_user_not_found_response(user_id=user_id)
 
     def _get_user_details(self, user_id) -> UserDetailsDTO:
         user_details_dto = self.storage.get_user(user_id=user_id)
