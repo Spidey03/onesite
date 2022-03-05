@@ -1,5 +1,5 @@
 import factory
-
+import factory.fuzzy
 from market.constants.constants import site_types
 from market.interactors.storages.dtos import UserDetailsDTO, SiteDTO
 
@@ -27,7 +27,7 @@ class SiteDTOFactory(factory.Factory):
     state = factory.Sequence(lambda n: "State%03d" % n)
     country = factory.Sequence(lambda n: "Country%03d" % n)
     type = factory.fuzzy.FuzzyChoice(site_types)
-    price = factory.fuzzy.FuzzyFloat()
+    price = factory.fuzzy.FuzzyFloat(low=10000)
     availability = factory.fuzzy.FuzzyChoice([True, False])
     is_private = factory.fuzzy.FuzzyChoice([True, False])
     location_coordinate = ""

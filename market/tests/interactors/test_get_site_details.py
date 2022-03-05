@@ -2,6 +2,8 @@ from unittest.mock import create_autospec, Mock
 
 import pytest
 
+from market.tests.common_fixtures.factories import UserDetailsDTOFactory
+
 SITE_ID = "d32b2f96-93f5-4e2f-842d-d590783dd001"
 OWNER_ID = "d32b2f96-93f5-4e2f-842d-d590783dc001"
 
@@ -43,7 +45,7 @@ class TestGetSiteDetailsInteractor:
         from market.tests.common_fixtures.factories import SiteDTOFactory
         from market.tests.common_fixtures.reset_sequence import reset
         reset()
-        SiteDTOFactory.create(
+        return SiteDTOFactory.create(
             owner_id=OWNER_ID
         )
 
@@ -78,9 +80,13 @@ class TestGetSiteDetailsInteractor:
         # Arrange
 
         site_storage.get_site_details.return_value = site_dto
+        user_details_dto = UserDetailsDTOFactory(id=site_dto.owner_id)
+
+        from market.exceptions.exceptions import UserNotFoundException
+        user_storage.get_user.side_effect = UserNotFoundException
 
         expected_response = Mock()
-        presenter.get_site_not_found_exception_response. \
+        presenter.get_user_not_found_response. \
             return_value = expected_response
 
         # Act
@@ -91,6 +97,7 @@ class TestGetSiteDetailsInteractor:
         # Assert
         assert response == expected_response
         site_storage.get_site_details.assert_called_once()
-        assert user_storage.get_user.call_count == 0
-        presenter.get_site_not_found_exception_response. \
-            assert_called_once_with(site_id=SITE_ID)
+        user_storage.get_user.assert_called_once_with(
+            user_id=site_dto.owner_id
+        )
+        presenter.get_user_not_found_response.assert_called_once()

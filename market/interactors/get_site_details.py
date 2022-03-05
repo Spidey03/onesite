@@ -1,6 +1,6 @@
 from typing import Tuple
 
-from market.exceptions.exceptions import SiteNotFoundException
+from market.exceptions.exceptions import SiteNotFoundException, UserNotFoundException
 from market.interactors.presenters.presenter_interface import PresenterInterface
 from market.interactors.storages.dtos import SiteDTO, UserDetailsDTO
 from market.interactors.storages.site_storages_interface import SiteStorageInterface
@@ -24,6 +24,8 @@ class GetSiteInteractor:
             )
         except SiteNotFoundException:
             return presenter.get_site_not_found_exception_response(site_id=site_id)
+        except UserNotFoundException:
+            return presenter.get_user_not_found_response()
 
     def _get_site_details(self, site_id: str) -> tuple[SiteDTO, UserDetailsDTO]:
         site_dto = self.site_storage.get_site_details(site_id=site_id)
