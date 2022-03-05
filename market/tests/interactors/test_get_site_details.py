@@ -101,3 +101,32 @@ class TestGetSiteDetailsInteractor:
             user_id=site_dto.owner_id
         )
         presenter.get_user_not_found_response.assert_called_once()
+
+    def test_success_response(
+            self, interactor, site_storage,
+            user_storage, presenter, site_dto
+    ):
+        # Arrange
+
+        site_storage.get_site_details.return_value = site_dto
+        user_details_dto = UserDetailsDTOFactory(id=site_dto.owner_id)
+        user_storage.get_user.return_value = user_details_dto
+
+        expected_response = Mock()
+        presenter.get_site_details_response. \
+            return_value = expected_response
+
+        # Act
+        response = interactor.get_site_details_wrapper(
+            site_id=SITE_ID, presenter=presenter
+        )
+
+        # Assert
+        assert response == expected_response
+        site_storage.get_site_details.assert_called_once()
+        user_storage.get_user.assert_called_once_with(
+            user_id=site_dto.owner_id
+        )
+        presenter.get_site_details_response.assert_called_once_with(
+            site_dto=site_dto, owner_dto=user_details_dto
+        )
