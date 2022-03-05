@@ -30,7 +30,7 @@ class SiteDTOFactory(factory.Factory):
     price = factory.fuzzy.FuzzyFloat(low=10000)
     availability = factory.fuzzy.FuzzyChoice([True, False])
     is_private = factory.fuzzy.FuzzyChoice([True, False])
-    location_coordinate = ""
+    location_coordinates = ""
     street_name = ""
     village = ""
     city = ""

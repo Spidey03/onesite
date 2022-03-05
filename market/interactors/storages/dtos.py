@@ -25,7 +25,7 @@ class SiteDTO:
     price: float
     availability: bool = True
     is_private: bool = False
-    location_coordinate: Optional[str] = None
+    location_coordinates: Optional[str] = None
     street_name: Optional[str] = None
     village: Optional[str] = None
     city: Optional[str] = None
