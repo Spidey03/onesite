@@ -21,8 +21,8 @@ class TestGetSiteDetails:
             import UserModelFactory
         user = UserModelFactory(id=USER_ID)
         return SiteModelFactory.create(
-            id=SITE_ID, owner_id=user,
-            price=99909.0, type="SITE", availability=True
+            id=SITE_ID, owner=user,
+            price=99909.0, type="SITE", availability=True, is_private=False
         )
 
     @pytest.fixture
@@ -32,7 +32,7 @@ class TestGetSiteDetails:
         site_dto = SiteDTOFactory(
             id=SITE_ID,
             owner_id=USER_ID,
-            price=99909.0, type="SITE", availability=True
+            price=99909.0, type="SITE", availability=True, is_private=False
         )
         return site_dto
 

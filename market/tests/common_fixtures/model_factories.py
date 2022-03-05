@@ -21,7 +21,7 @@ class SiteModelFactory(factory.django.DjangoModelFactory):
         model = SiteModel
 
     id = factory.Sequence(lambda n: "d32b2f96-93f5-4e2f-842d-d590783dd%03d" % n)
-    owner_id = factory.SubFactory(UserModelFactory)
+    owner = factory.SubFactory(UserModelFactory)
     district = factory.Sequence(lambda n: "District%03d" % n)
     state = factory.Sequence(lambda n: "State%03d" % n)
     country = factory.Sequence(lambda n: "Country%03d" % n)

@@ -18,7 +18,7 @@ class SiteStorageImplementation(SiteStorageInterface):
     def _convert_to_site_dto(site_obj) -> SiteDTO:
         site_dto = SiteDTO(
             id=str(site_obj.id),
-            owner_id=str(site_obj.owner_id.id),
+            owner_id=str(site_obj.owner.id),
             district=site_obj.district,
             state=site_obj.state,
             country=site_obj.country,
