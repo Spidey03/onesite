@@ -1,6 +1,6 @@
 import abc
 
-from market.interactors.storages.dtos import UserDetailsDTO
+from market.interactors.storages.dtos import UserDetailsDTO, SiteDTO
 
 
 class PresenterInterface(abc.ABC):
@@ -11,4 +11,10 @@ class PresenterInterface(abc.ABC):
 
     @abc.abstractmethod
     def get_user_not_found_response(self, user_id: str):
+        pass
+
+    def get_site_details_response(self, site_dto: SiteDTO, owner_dto: UserDetailsDTO):
+        pass
+
+    def get_site_not_found_exception_response(self, site_id):
         pass

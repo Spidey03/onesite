@@ -12,3 +12,20 @@ class UserDetailsDTO:
     email: str
     middle_name: Optional[str] = None
     last_name: Optional[str] = None
+
+
+@dataclass
+class SiteDTO:
+    id: str
+    owner_id: str
+    district: str
+    state: str
+    country: str
+    type: str
+    price: float
+    availability: bool = True
+    is_private: bool = False
+    location_coordinate: Optional[str] = None
+    street_name: Optional[str] = None
+    village: Optional[str] = None
+    city: Optional[str] = None

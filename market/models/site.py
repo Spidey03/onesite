@@ -1,5 +1,7 @@
 from django.db import models
 
+from market.constants.constants import site_types
+
 
 class SiteModel(models.Model):
     id = models.UUIDField(primary_key=True)
@@ -13,10 +15,7 @@ class SiteModel(models.Model):
     location_coordinates = models.CharField(max_length=1000)
     type = models.CharField(
         max_length=30,
-        choices=(
-            ("Home", "home"),
-            ('Site', "site")
-        ),
+        choices=site_types,
         blank=True
     )
     price = models.FloatField(null=True, blank=True)
