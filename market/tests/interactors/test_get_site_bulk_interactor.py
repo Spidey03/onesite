@@ -50,18 +50,28 @@ class TestGetSiteBulkInteractor:
             size=3, owner_id=factory.Iterator(USER_IDS)
         )
 
+    @pytest.fixture
+    def owner_dto_list(self):
+        reset()
+        from market.tests.common_fixtures.factories import UserDetailsDTOFactory
+        return UserDetailsDTOFactory.create_batch(
+            size=len(list(set(USER_IDS))),
+            id=factory.Iterator(list(set(USER_IDS)))
+        )
+
     def test_returns_response(
             self,
             site_storage,
             user_storage,
             interactor,
             presenter,
-            site_dto_list
+            site_dto_list,
+            owner_dto_list
     ):
         # Arrange
         site_storage.get_sites_bulk.return_value = site_dto_list
-        user_storage.get_users_bulk.return_value = Mock()
-        # presenter.get_sites_bulk_response.return_value = Mock()
+        user_storage.get_users_bulk.return_value = owner_dto_list
+        presenter.get_sites_bulk_response.return_value = Mock()
 
         # Act
         interactor.get_site_bulk_wrapper(presenter=presenter)
@@ -69,4 +79,7 @@ class TestGetSiteBulkInteractor:
         # Assert
         site_storage.get_sites_bulk.assert_called_once()
         user_storage.get_users_bulk.assert_called_once_with(user_ids=list(set(USER_IDS)))
-        presenter.get_sites_bulk_response.assert_called_once()
+        presenter.get_sites_bulk_response.assert_called_once_with(
+            site_dto_list=site_dto_list,
+            owner_dto_list=owner_dto_list
+        )
