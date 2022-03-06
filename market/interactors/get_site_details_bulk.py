@@ -4,7 +4,7 @@ from market.interactors.storages.site_storages_interface import SiteStorageInter
 from market.interactors.storages.user_storages_interface import UserStorageInterface
 
 
-class GetSiteBulkInteractor:
+class GetSiteDetailsBulkInteractor:
     def __init__(
             self,
             site_storage: SiteStorageInterface,

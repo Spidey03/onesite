@@ -12,7 +12,7 @@ USER_IDS = [
 ]
 
 
-class TestGetSiteBulkInteractor:
+class TestGetSiteDetailsBulkInteractor:
 
     @pytest.fixture
     def user_storage(self):
@@ -29,8 +29,8 @@ class TestGetSiteBulkInteractor:
 
     @pytest.fixture
     def interactor(self, site_storage, user_storage):
-        from market.interactors.get_sites import GetSiteBulkInteractor
-        return GetSiteBulkInteractor(
+        from market.interactors.get_site_details_bulk import GetSiteDetailsBulkInteractor
+        return GetSiteDetailsBulkInteractor(
             site_storage=site_storage,
             user_storage=user_storage
         )
