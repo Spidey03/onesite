@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 
 from market.constants.constants import StatusCode
 from market.interactors.presenters.presenter_interface import PresenterInterface
@@ -45,3 +45,23 @@ class PresenterImplementation(PresenterInterface):
             'res_status': res_status,
             'status_code': http_status_code
         }
+
+    def get_sites_bulk_response(
+            self,
+            site_dto_list: List[SiteDTO],
+            owner_dto_list: List[UserDetailsDTO]
+    ):
+        from collections import defaultdict
+        owner_dtos_dict = defaultdict()
+        for owner_dto in owner_dto_list:
+            owner_dtos_dict[owner_dto.id] = owner_dto
+        response = []
+
+        for site_dto in site_dto_list:
+            owner_dto = owner_dtos_dict.get(site_dto.owner_id)
+            site_response = site_dto.__dict__
+            site_response.pop('owner_id')
+            site_response['owner'] = owner_dto.__dict__
+            response.append(site_response)
+
+        return response
