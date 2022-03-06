@@ -1,3 +1,5 @@
+from typing import List
+
 from market.exceptions.exceptions import SiteNotFoundException
 from market.interactors.storages.dtos import SiteDTO
 from market.interactors.storages.site_storages_interface \
@@ -32,3 +34,12 @@ class SiteStorageImplementation(SiteStorageInterface):
             city=site_obj.city
         )
         return site_dto
+
+    def get_sites_bulk(self) -> List[SiteDTO]:
+        from market.models import SiteModel
+        site_objs = SiteModel.objects.filter()
+        site_dto_list = [
+            self._convert_to_site_dto(site_obj=site_obj)
+            for site_obj in site_objs
+        ]
+        return site_dto_list
