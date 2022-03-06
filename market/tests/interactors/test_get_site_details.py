@@ -80,7 +80,6 @@ class TestGetSiteDetailsInteractor:
         # Arrange
 
         site_storage.get_site_details.return_value = site_dto
-        user_details_dto = UserDetailsDTOFactory(id=site_dto.owner)
 
         from market.exceptions.exceptions import UserNotFoundException
         user_storage.get_user.side_effect = UserNotFoundException
@@ -98,7 +97,7 @@ class TestGetSiteDetailsInteractor:
         assert response == expected_response
         site_storage.get_site_details.assert_called_once()
         user_storage.get_user.assert_called_once_with(
-            user_id=site_dto.owner
+            user_id=site_dto.owner_id
         )
         presenter.get_user_not_found_response.assert_called_once()
 
@@ -109,7 +108,7 @@ class TestGetSiteDetailsInteractor:
         # Arrange
 
         site_storage.get_site_details.return_value = site_dto
-        user_details_dto = UserDetailsDTOFactory(id=site_dto.owner)
+        user_details_dto = UserDetailsDTOFactory(id=site_dto.owner_id)
         user_storage.get_user.return_value = user_details_dto
 
         expected_response = Mock()
@@ -125,7 +124,7 @@ class TestGetSiteDetailsInteractor:
         assert response == expected_response
         site_storage.get_site_details.assert_called_once()
         user_storage.get_user.assert_called_once_with(
-            user_id=site_dto.owner
+            user_id=site_dto.owner_id
         )
         presenter.get_site_details_response.assert_called_once_with(
             site_dto=site_dto, owner_dto=user_details_dto
