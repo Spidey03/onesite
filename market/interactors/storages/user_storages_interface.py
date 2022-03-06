@@ -10,5 +10,6 @@ class UserStorageInterface(abc.ABC):
     def get_user(self, user_id: str) -> UserDetailsDTO:
         pass
 
+    @abc.abstractmethod
     def get_users_bulk(self, user_ids: List[str]):
         pass
