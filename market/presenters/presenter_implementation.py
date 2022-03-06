@@ -2,7 +2,7 @@ from typing import Optional
 
 from market.constants.constants import StatusCode
 from market.interactors.presenters.presenter_interface import PresenterInterface
-from market.interactors.storages.dtos import UserDetailsDTO
+from market.interactors.storages.dtos import UserDetailsDTO, SiteDTO
 
 
 class PresenterImplementation(PresenterInterface):
@@ -22,6 +22,23 @@ class PresenterImplementation(PresenterInterface):
         from market.constants.exception_message import USER_NOT_FOUND_EXCEPTION
         response = USER_NOT_FOUND_EXCEPTION[0].format(user_id)
         res_status = USER_NOT_FOUND_EXCEPTION[1]
+        http_status_code = StatusCode.BadRequest.value
+        return {
+            'response': response,
+            'res_status': res_status,
+            'status_code': http_status_code
+        }
+
+    def get_site_details_response(self, site_dto: SiteDTO, owner_dto: UserDetailsDTO):
+        response = site_dto.__dict__
+        response['owner'] = owner_dto.__dict__
+        response.pop('owner_id')
+        return response
+
+    def get_site_not_found_exception_response(self, site_id):
+        from market.constants.exception_message import SITE_NOT_FOUND_EXCEPTION
+        response = SITE_NOT_FOUND_EXCEPTION[0].format(site_id)
+        res_status = SITE_NOT_FOUND_EXCEPTION[1]
         http_status_code = StatusCode.BadRequest.value
         return {
             'response': response,
