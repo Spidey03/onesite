@@ -11,6 +11,7 @@ USER_IDS = [
     "d32b2f96-93f5-4e2f-842d-d590783dc002"
 ]
 
+
 class TestGetSiteBulkInteractor:
 
     @pytest.fixture

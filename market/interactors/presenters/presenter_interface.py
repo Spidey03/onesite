@@ -1,5 +1,5 @@
 import abc
-from typing import Optional
+from typing import Optional, List
 
 from market.interactors.storages.dtos import UserDetailsDTO, SiteDTO
 
@@ -20,4 +20,12 @@ class PresenterInterface(abc.ABC):
 
     @abc.abstractmethod
     def get_site_not_found_exception_response(self, site_id):
+        pass
+
+    @abc.abstractmethod
+    def get_sites_bulk_response(
+            self,
+            site_dto_list: List[SiteDTO],
+            owner_dto_list: List[UserDetailsDTO]
+    ):
         pass
