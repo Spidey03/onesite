@@ -27,7 +27,7 @@ class GetSiteInteractor:
         except UserNotFoundException:
             return presenter.get_user_not_found_response()
 
-    def _get_site_details(self, site_id: str) -> tuple[SiteDTO, UserDetailsDTO]:
+    def _get_site_details(self, site_id: str) -> (SiteDTO, UserDetailsDTO):
         site_dto = self.site_storage.get_site_details(site_id=site_id)
 
         owner_id = site_dto.owner_id
