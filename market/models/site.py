@@ -1,10 +1,11 @@
 from django.db import models
 
+from market.common import get_uuid
 from market.constants.constants import SITE_TYPE
 
 
 class SiteModel(models.Model):
-    id = models.UUIDField(primary_key=True)
+    id = models.UUIDField(primary_key=True, default=get_uuid())
     owner = models.ForeignKey('User', on_delete=models.CASCADE)
     street_name = models.CharField(max_length=1000)
     village = models.CharField(max_length=1000)

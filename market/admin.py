@@ -18,6 +18,7 @@ class UserAdmin(admin.ModelAdmin):
         'mobile_number',
         'email'
     )
+    readonly_fields = ('id',)
     empty_value_display = '-empty-'
 
 
@@ -39,4 +40,5 @@ class SiteModelAdmin(admin.ModelAdmin):
             }
         )
     )
+    readonly_fields = ('id',)
     empty_value_display = '-empty-'
