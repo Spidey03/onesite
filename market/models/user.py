@@ -9,3 +9,6 @@ class User(models.Model):
     joined_at = models.DateTimeField(blank=True, null=True)
     mobile_number = models.CharField(max_length=12, unique=True)
     email = models.CharField(unique=True, max_length=30)
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
