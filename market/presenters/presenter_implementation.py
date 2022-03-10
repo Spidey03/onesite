@@ -65,3 +65,14 @@ class PresenterImplementation(PresenterInterface):
             response.append(site_response)
 
         return response
+
+    def add_site_details_success_response(self):
+        from market.constants.exception_message import SITE_ADDED_SUCCESSFULLY
+        response = SITE_ADDED_SUCCESSFULLY[0]
+        res_status = SITE_ADDED_SUCCESSFULLY[1]
+        http_status_code = StatusCode.Created_Success.value
+        return {
+            'response': response,
+            'res_status': res_status,
+            'status_code': http_status_code
+        }
