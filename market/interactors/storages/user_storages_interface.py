@@ -13,3 +13,7 @@ class UserStorageInterface(abc.ABC):
     @abc.abstractmethod
     def get_users_bulk(self, user_ids: List[str]):
         pass
+
+    @abc.abstractmethod
+    def check_user_exists(self, user_id: str):
+        pass
