@@ -6,7 +6,7 @@ USER_ID = "d32b2f96-93f5-4e2f-842d-d590783dc001"
 SITE_ID = "d32b2f96-93f5-4e2f-842d-d590783dd001"
 
 
-class TestGetSiteDetails:
+class TestAddSiteDetailsStorage:
     @pytest.fixture
     def storage(self):
         from market.storages.site_storage_implementation \
