@@ -41,3 +41,14 @@ class UserStorageImplementation(UserStorageInterface):
     def check_user_exists(self, user_id: str):
         from market.models import User
         return User.objects.filter(id=user_id).exists()
+
+    def is_email_already_registered(self, email: str) -> bool:
+        from market.models import User
+        return User.objects.filter(email=email).exists()
+
+    def add_user(self, user_details_dto: UserDetailsDTO):
+        pass
+
+    def is_mobile_number_already_registered(self, mobile_number: str) -> bool:
+        from market.models.user import User
+        return User.objects.filter(mobile_number=mobile_number).exists()
