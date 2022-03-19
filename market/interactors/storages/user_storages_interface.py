@@ -17,3 +17,7 @@ class UserStorageInterface(abc.ABC):
     @abc.abstractmethod
     def check_user_exists(self, user_id: str):
         pass
+
+    @abc.abstractmethod
+    def is_email_already_registered(self, email: str) -> bool:
+        pass

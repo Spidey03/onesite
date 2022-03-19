@@ -33,3 +33,11 @@ class PresenterInterface(abc.ABC):
     @abc.abstractmethod
     def add_site_details_success_response(self):
         pass
+
+    @abc.abstractmethod
+    def email_already_register_response(self, email: str):
+        pass
+
+    @abc.abstractmethod
+    def email_pattern_invalid_response(self, email):
+        pass
