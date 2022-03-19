@@ -18,6 +18,7 @@ class AddUserDetailsInteractor(ValidationMixin):
     ):
         try:
             self._add_user_details(user_details_dto=user_details_dto)
+            return presenter.add_user_details_success_response()
         except EmailInvalidPatternException:
             return presenter.email_pattern_invalid_response(email=user_details_dto.email)
         except EmailAlreadyRegisteredException:

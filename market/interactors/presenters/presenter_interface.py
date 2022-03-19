@@ -45,3 +45,7 @@ class PresenterInterface(abc.ABC):
     @abc.abstractmethod
     def mobile_number_already_registered_response(self, mobile_number):
         pass
+
+    @abc.abstractmethod
+    def add_user_details_success_response(self):
+        pass
