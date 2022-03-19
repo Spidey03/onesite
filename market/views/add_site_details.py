@@ -3,6 +3,8 @@ import uuid
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
+from market.serializers.site_serializers import SiteSerializer
+
 
 def get_site_dto(data):
     from market.interactors.storages.dtos import SiteDTO
@@ -14,8 +16,8 @@ def get_site_dto(data):
         country=data.get("country"),
         type=data.get("type"),
         price=data.get("price"),
-        availability=data.get("availability"),
-        is_private=data.get("is_private"),
+        availability=data.get("availability", True),
+        is_private=data.get("is_private", False),
         location_coordinates=data.get("location_coordinates"),
         street_name=data.get("street_name"),
         village=data.get("village"),
@@ -25,8 +27,6 @@ def get_site_dto(data):
 
 @api_view(['POST'])
 def add_site_details(request):
-    site_dto = get_site_dto(request.data)
-
     from market.storages.site_storage_implementation import SiteStorageImplementation
     from market.storages.user_storage_implementation import UserStorageImplementation
     site_storage = SiteStorageImplementation()
@@ -40,6 +40,10 @@ def add_site_details(request):
 
     from market.presenters.presenter_implementation import PresenterImplementation
     presenter = PresenterImplementation()
-
-    response = interactor.add_site_details_wrapper(site_dto=site_dto, presenter=presenter)
+    serializer = SiteSerializer(data=request.data)
+    if serializer.is_valid():
+        site_dto = get_site_dto(request.data)
+        response = interactor.add_site_details_wrapper(site_dto=site_dto, presenter=presenter)
+    else:
+        response = serializer.errors
     return Response(response)

@@ -19,9 +19,9 @@ class AddSiteDetailsInteractor:
     ):
         try:
             self.add_site_details(site_dto=site_dto)
-            presenter.add_site_details_success_response()
+            return presenter.add_site_details_success_response()
         except UserNotFoundException:
-            presenter.get_user_not_found_response(user_id=site_dto.owner_id)
+            return presenter.get_user_not_found_response(user_id=site_dto.owner_id)
 
     def add_site_details(self, site_dto: SiteDTO):
         is_not_exists = not self.user_storage.check_user_exists(user_id=site_dto.owner_id)
