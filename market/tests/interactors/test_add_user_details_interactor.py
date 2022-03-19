@@ -38,7 +38,7 @@ class TestGetSiteDetailsBulkInteractor:
             interactor, user_details_dto
     ):
         # Arrange
-        user_storage.is_email_already_registered.return_value = True
+        user_details_dto.email = user_details_dto.first_name
         presenter.email_already_register_response.return_value = Mock()
 
         # Act
@@ -48,9 +48,6 @@ class TestGetSiteDetailsBulkInteractor:
         )
 
         # Assert
-        user_storage.is_email_already_registered.assert_called_once_with(
-            email=user_details_dto.email
-        )
         presenter.email_already_register_response.assert_called_once_with(
             email=user_details_dto.email
         )
@@ -61,7 +58,7 @@ class TestGetSiteDetailsBulkInteractor:
     ):
         # Arrange
         user_storage.is_email_already_registered.return_value = True
-        presenter.email_already_register_response.return_value = Mock()
+        presenter.email_pattern_invalid_response.return_value = Mock()
 
         # Act
         interactor.add_user_details_wrapper(
@@ -70,9 +67,29 @@ class TestGetSiteDetailsBulkInteractor:
         )
 
         # Assert
-        user_storage.is_email_already_registered.assert_called_once_with(
+        presenter.email_pattern_invalid_response.assert_called_once_with(
             email=user_details_dto.email
         )
-        presenter.email_already_register_response.assert_called_once_with(
-            email=user_details_dto.email
+
+    def test_mobile_number_already_registered(
+            self, user_storage, presenter,
+            interactor, user_details_dto
+    ):
+        # Arrange
+        user_storage.is_email_already_registered.return_value = False
+        user_storage.is_mobile_number_already_registered.return_value = True
+        presenter.email_pattern_invalid_response.return_value = Mock()
+
+        # Act
+        interactor.add_user_details_wrapper(
+            user_details_dto=user_details_dto,
+            presenter=presenter
+        )
+
+        # Assert
+        user_storage.is_mobile_number_already_registered.assert_called_once_with(
+            mobile_number=user_details_dto.mobile_number
+        )
+        presenter.mobile_number_already_registered_response.assert_called_once_with(
+            mobile_number=user_details_dto.mobile_number
         )

@@ -41,3 +41,7 @@ class PresenterInterface(abc.ABC):
     @abc.abstractmethod
     def email_pattern_invalid_response(self, email):
         pass
+
+    @abc.abstractmethod
+    def mobile_number_already_registered_response(self, mobile_number):
+        pass
