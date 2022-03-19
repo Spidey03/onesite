@@ -76,3 +76,47 @@ class PresenterImplementation(PresenterInterface):
             'res_status': res_status,
             'status_code': http_status_code
         }
+
+    def email_already_register_response(self, email: str):
+        from market.constants.exception_message import EMAIL_ALREADY_EXIST
+        response = EMAIL_ALREADY_EXIST[0].format(email)
+        res_status = EMAIL_ALREADY_EXIST[1]
+        http_status_code = StatusCode.BadRequest.value
+        return {
+            'response': response,
+            'res_status': res_status,
+            'status_code': http_status_code
+        }
+
+    def email_pattern_invalid_response(self, email):
+        from market.constants.exception_message import EMAIL_PATTERN_INVALID
+        response = EMAIL_PATTERN_INVALID[0].format(email)
+        res_status = EMAIL_PATTERN_INVALID[1]
+        http_status_code = StatusCode.BadRequest.value
+        return {
+            'response': response,
+            'res_status': res_status,
+            'status_code': http_status_code
+        }
+
+    def mobile_number_already_registered_response(self, mobile_number):
+        from market.constants.exception_message import MOBILE_NUMBER_ALREADY_EXIST
+        response = MOBILE_NUMBER_ALREADY_EXIST[0].format(mobile_number)
+        res_status = MOBILE_NUMBER_ALREADY_EXIST[1]
+        http_status_code = StatusCode.BadRequest.value
+        return {
+            'response': response,
+            'res_status': res_status,
+            'status_code': http_status_code
+        }
+
+    def add_user_details_success_response(self):
+        from market.constants.exception_message import USER_DETAILS_ADDED_SUCCESSFULLY
+        response = USER_DETAILS_ADDED_SUCCESSFULLY[0]
+        res_status = USER_DETAILS_ADDED_SUCCESSFULLY[1]
+        http_status_code = StatusCode.Created_Success.value
+        return {
+            'response': response,
+            'res_status': res_status,
+            'status_code': http_status_code
+        }
