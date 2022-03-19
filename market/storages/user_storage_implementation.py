@@ -37,3 +37,7 @@ class UserStorageImplementation(UserStorageInterface):
             for user_obj in user_objs
         ]
         return user_dto_list
+
+    def check_user_exists(self, user_id: str):
+        from market.models import User
+        return User.objects.filter(id=user_id).exists()

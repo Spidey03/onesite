@@ -29,3 +29,7 @@ class PresenterInterface(abc.ABC):
             owner_dto_list: List[UserDetailsDTO]
     ):
         pass
+
+    @abc.abstractmethod
+    def add_site_details_success_response(self):
+        pass
