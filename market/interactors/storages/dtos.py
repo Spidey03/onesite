@@ -7,9 +7,9 @@ from typing import Optional
 class UserDetailsDTO:
     id: str
     first_name: str
-    joined_at: str
     mobile_number: str
     email: str
+    joined_at: Optional[str] = ""
     middle_name: Optional[str] = None
     last_name: Optional[str] = None
 
