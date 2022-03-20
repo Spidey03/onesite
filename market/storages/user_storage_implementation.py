@@ -55,7 +55,8 @@ class UserStorageImplementation(UserStorageInterface):
             first_name=user_details_dto.first_name,
             last_name=user_details_dto.last_name,
             middle_name=user_details_dto.middle_name,
-            joined_at=datetime.datetime.now()
+            joined_at=datetime.datetime.now(),
+            mobile_number=user_details_dto.mobile_number
         )
 
     def is_mobile_number_already_registered(self, mobile_number: str) -> bool:
