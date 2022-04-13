@@ -17,7 +17,7 @@ def get_user(request, id: str):
     return Response(response)
 
 @api_view(['GET'])
-def get_user(request):
+def get_profile(request):
     user_id = request.data.get('user_id')
     from market.storages.user_storage_implementation import UserStorageImplementation
     storage = UserStorageImplementation()
