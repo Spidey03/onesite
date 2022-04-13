@@ -29,3 +29,23 @@ class PresenterInterface(abc.ABC):
             owner_dto_list: List[UserDetailsDTO]
     ):
         pass
+
+    @abc.abstractmethod
+    def add_site_details_success_response(self):
+        pass
+
+    @abc.abstractmethod
+    def email_already_register_response(self, email: str):
+        pass
+
+    @abc.abstractmethod
+    def email_pattern_invalid_response(self, email):
+        pass
+
+    @abc.abstractmethod
+    def mobile_number_already_registered_response(self, mobile_number):
+        pass
+
+    @abc.abstractmethod
+    def add_user_details_success_response(self):
+        pass

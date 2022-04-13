@@ -43,3 +43,21 @@ class SiteStorageImplementation(SiteStorageInterface):
             for site_obj in site_objs
         ]
         return site_dto_list
+
+    def add_site_details(self, site_dto: SiteDTO):
+        from market.models import SiteModel
+        SiteModel.objects.create(
+            id=site_dto.id,
+            owner_id=site_dto.owner_id,
+            street_name=site_dto.street_name,
+            village=site_dto.village,
+            city=site_dto.city,
+            district=site_dto.district,
+            state=site_dto.state,
+            country=site_dto.country,
+            location_coordinates=site_dto.location_coordinates,
+            type=site_dto.type,
+            price=site_dto.price,
+            availability=site_dto.availability,
+            is_private=site_dto.is_private
+        )
