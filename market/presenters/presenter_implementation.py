@@ -123,3 +123,6 @@ class PresenterImplementation(PresenterInterface):
 
     def update_user_details_success_response(self):
         pass
+
+    def user_not_present_response(self):
+        pass
