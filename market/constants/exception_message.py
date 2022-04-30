@@ -27,3 +27,11 @@ MOBILE_NUMBER_ALREADY_EXIST = (
 USER_DETAILS_ADDED_SUCCESSFULLY = (
     "User details added successfully", "USER_DETAILS_ADDED_SUCCESSFULLY"
 )
+
+USER_DETAILS_UPDATED_SUCCESSFULLY = (
+    "User details updated successfully", "USER_DETAILS_UPDATED_SUCCESSFULLY"
+)
+
+USER_NOT_EXISTS = (
+    "User not found", "USER_NOT_EXISTS"
+)
