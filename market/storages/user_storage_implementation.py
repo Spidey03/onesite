@@ -62,3 +62,13 @@ class UserStorageImplementation(UserStorageInterface):
     def is_mobile_number_already_registered(self, mobile_number: str) -> bool:
         from market.models.user import User
         return User.objects.filter(mobile_number=mobile_number).exists()
+
+    def update_user(self, user_details_dto: UserDetailsDTO):
+        from market.models import User
+        User.objects.filter(id=user_details_dto.id).update(
+            first_name=user_details_dto.first_name,
+            last_name=user_details_dto.last_name,
+            middle_name=user_details_dto.middle_name,
+            mobile_number=user_details_dto.mobile_number,
+            email=user_details_dto.email
+        )

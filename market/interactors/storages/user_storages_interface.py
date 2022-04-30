@@ -29,3 +29,7 @@ class UserStorageInterface(abc.ABC):
     @abc.abstractmethod
     def is_mobile_number_already_registered(self, mobile_number: str) -> bool:
         pass
+
+    @abc.abstractmethod
+    def update_user(self, user_details_dto):
+        pass

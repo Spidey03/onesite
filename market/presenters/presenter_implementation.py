@@ -120,3 +120,25 @@ class PresenterImplementation(PresenterInterface):
             'res_status': res_status,
             'status_code': http_status_code
         }
+
+    def update_user_details_success_response(self):
+        from market.constants.exception_message import USER_DETAILS_UPDATED_SUCCESSFULLY
+        response = USER_DETAILS_UPDATED_SUCCESSFULLY[0]
+        res_status = USER_DETAILS_UPDATED_SUCCESSFULLY[1]
+        http_status_code = StatusCode.Success.value
+        return {
+            'response': response,
+            'res_status': res_status,
+            'status_code': http_status_code
+        }
+
+    def user_not_present_response(self):
+        from market.constants.exception_message import USER_NOT_EXISTS
+        response = USER_NOT_EXISTS[0]
+        res_status = USER_NOT_EXISTS[1]
+        http_status_code = StatusCode.BadRequest.value
+        return {
+            'response': response,
+            'res_status': res_status,
+            'status_code': http_status_code
+        }

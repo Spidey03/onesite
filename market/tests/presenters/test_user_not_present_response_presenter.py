@@ -1,23 +1,21 @@
 import pytest
 
 
-class TestEmailPatternInvalidResponse:
+class TestUserNotFoundResponse:
     @pytest.fixture
     def presenter(self):
         from market.presenters.presenter_implementation import PresenterImplementation
         return PresenterImplementation()
 
-    def test_email_pattern_invalid_response(self, presenter):
+    def test_user_not_present_response(self, presenter):
         # Arrange
         expected_response = {
-            'res_status': 'EMAIL_PATTERN_INVALID',
-            'response': 'tonystark.com is invalid pattern',
+            'res_status': 'USER_NOT_EXISTS',
+            'response': 'User not found',
             'status_code': 400
         }
         # Act
-        response = presenter.email_pattern_invalid_response(
-            email="tonystark.com"
-        )
+        response = presenter.user_not_present_response()
 
         # Arrange
         assert response == expected_response
