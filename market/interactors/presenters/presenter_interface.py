@@ -49,3 +49,7 @@ class PresenterInterface(abc.ABC):
     @abc.abstractmethod
     def add_user_details_success_response(self):
         pass
+
+    @abc.abstractmethod
+    def update_user_details_success_response(self):
+        pass

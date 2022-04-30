@@ -120,3 +120,6 @@ class PresenterImplementation(PresenterInterface):
             'res_status': res_status,
             'status_code': http_status_code
         }
+
+    def update_user_details_success_response(self):
+        pass
