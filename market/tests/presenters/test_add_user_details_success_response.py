@@ -1,7 +1,7 @@
 import pytest
 
 
-class TestA:
+class TestAddUserDetailsSuccessResponse:
     @pytest.fixture
     def presenter(self):
         from market.presenters.presenter_implementation import PresenterImplementation

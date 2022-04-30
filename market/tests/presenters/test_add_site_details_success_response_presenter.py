@@ -1,7 +1,5 @@
 import pytest
 
-from market.tests.common_fixtures.reset_sequence import reset
-
 SITE_ID = "d32b2f96-93f5-4e2f-842d-d590783dd001"
 
 
@@ -15,8 +13,8 @@ class TestAddSiteResponsePresenter:
         # Arrange
         expected_response = {
             'res_status': 'SITE_ADDED_SUCCESSFULLY',
-             'response': 'Site added successfully',
-             'status_code': 201
+            'response': 'Site added successfully',
+            'status_code': 201
         }
 
         # Act
