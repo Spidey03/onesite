@@ -33,12 +33,30 @@ class TestGetSiteDetailsBulkInteractor:
         reset()
         return UserDetailsDTOFactory()
 
+    def test_if_user_not_exists(
+            self, user_storage, presenter,
+            interactor, user_details_dto
+    ):
+        # Arrange
+        user_storage.check_user_exists.return_value = False
+        presenter.email_pattern_invalid_response.return_value = Mock()
+
+        # Act
+        interactor.update_user_wrapper(
+            user_details_dto=user_details_dto,
+            presenter=presenter
+        )
+
+        # Assert
+        presenter.user_not_present_response.assert_called_once_with()
+
     def test_invalid_pattern_email(
             self, user_storage, presenter,
             interactor, user_details_dto
     ):
         # Arrange
         user_details_dto.email = user_details_dto.first_name
+        user_storage.check_user_exists.return_value = True
         presenter.email_pattern_invalid_response.return_value = Mock()
 
         # Act
@@ -57,6 +75,7 @@ class TestGetSiteDetailsBulkInteractor:
             interactor, user_details_dto
     ):
         # Arrange
+        user_storage.check_user_exists.return_value = True
         user_storage.is_email_already_registered.return_value = True
         presenter.email_pattern_invalid_response.return_value = Mock()
 
@@ -77,6 +96,7 @@ class TestGetSiteDetailsBulkInteractor:
             interactor, user_details_dto
     ):
         # Arrange
+        user_storage.check_user_exists.return_value = True
         user_storage.is_email_already_registered.return_value = False
         user_storage.is_mobile_number_already_registered.return_value = True
         presenter.email_pattern_invalid_response.return_value = Mock()
@@ -100,6 +120,7 @@ class TestGetSiteDetailsBulkInteractor:
             interactor, user_details_dto
     ):
         # Arrange
+        user_storage.check_user_exists.return_value = True
         user_storage.is_email_already_registered.return_value = False
         user_storage.is_mobile_number_already_registered.return_value = False
         user_storage.update_user.return_value = None

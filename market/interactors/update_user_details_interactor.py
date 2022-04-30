@@ -1,5 +1,5 @@
 from market.exceptions.exceptions import EmailInvalidPatternException, EmailAlreadyRegisteredException, \
-    MobileNumberAlreadyRegisteredException
+    MobileNumberAlreadyRegisteredException, UserNotExistsException
 from market.interactors.presenters.presenter_interface import PresenterInterface
 from market.interactors.storages.dtos import UserDetailsDTO
 from market.interactors.storages.user_storages_interface import UserStorageInterface
@@ -25,8 +25,12 @@ class UpdateUserDetailsInteractor(ValidationMixin):
             return presenter.mobile_number_already_registered_response(
                 mobile_number=user_details_dto.mobile_number
             )
+        except UserNotExistsException:
+            return presenter.user_not_present_response()
 
     def _update_user(self, user_details_dto: UserDetailsDTO):
+        if not self.user_storage.check_user_exists(user_id=user_details_dto.id):
+            raise UserNotExistsException()
         self.validate_email(
             email=user_details_dto.email,
             user_storage=self.user_storage

@@ -16,3 +16,7 @@ class EmailInvalidPatternException(Exception):
 
 class MobileNumberAlreadyRegisteredException(Exception):
     pass
+
+
+class UserNotExistsException(Exception):
+    pass
