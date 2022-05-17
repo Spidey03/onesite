@@ -33,3 +33,7 @@ class UserStorageInterface(abc.ABC):
     @abc.abstractmethod
     def update_user(self, user_details_dto):
         pass
+
+    @abc.abstractmethod
+    def delete_user(self, user_id):
+        pass
