@@ -3,7 +3,7 @@ from rest_framework.response import Response
 
 
 @api_view(["DELETE"])
-def delete_user(request):
+def delete_user(request, id: str):
     from market.serializers.user_serializer import UserSerializer
     serializer = UserSerializer(data=request.data)
     if not serializer.is_valid():

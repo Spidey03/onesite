@@ -72,3 +72,7 @@ class UserStorageImplementation(UserStorageInterface):
             mobile_number=user_details_dto.mobile_number,
             email=user_details_dto.email
         )
+
+    def delete_user(self, user_id):
+        from market.models import User
+        User.objects.filter(id=user_id).delete()
