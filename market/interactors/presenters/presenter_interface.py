@@ -59,5 +59,5 @@ class PresenterInterface(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def user_deleted_successfully(self):
+    def user_deleted_successfully_response(self):
         pass

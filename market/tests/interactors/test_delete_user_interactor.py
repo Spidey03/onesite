@@ -57,7 +57,7 @@ class TestGetSiteDetailsBulkInteractor:
         # Arrange
         user_id = "d32b2f96-93f5-4e2f-842d-d590783dc%03d1"
         user_storage.check_user_exists.return_value = True
-        presenter.user_deleted_successfully.return_value = Mock()
+        presenter.user_deleted_successfully_response.return_value = Mock()
 
         # Act
         interactor.delete_user_wrapper(
@@ -67,4 +67,4 @@ class TestGetSiteDetailsBulkInteractor:
 
         # Assert
         user_storage.check_user_exists.assert_called_once_with(user_id=user_id)
-        presenter.user_deleted_successfully.assert_called_once()
+        presenter.user_deleted_successfully_response.assert_called_once()

@@ -16,7 +16,7 @@ class DeleteUserInteractor(ValidationMixin):
     ):
         try:
             self._delete_user(user_id=user_id)
-            return presenter.user_deleted_successfully()
+            return presenter.user_deleted_successfully_response()
         except UserNotFoundException:
             return presenter.get_user_not_found_response(user_id=user_id)
 
