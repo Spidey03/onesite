@@ -142,3 +142,14 @@ class PresenterImplementation(PresenterInterface):
             'res_status': res_status,
             'status_code': http_status_code
         }
+
+    def user_deleted_successfully_response(self):
+        from market.constants.exception_message import USER_DELETE_SUCCESSFULLY
+        response = USER_DELETE_SUCCESSFULLY[0]
+        res_status = USER_DELETE_SUCCESSFULLY[1]
+        http_status_code = StatusCode.Success.value
+        return {
+            'response': response,
+            'res_status': res_status,
+            'status_code': http_status_code
+        }
