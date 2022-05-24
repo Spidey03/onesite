@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
@@ -14,6 +15,7 @@ def get_user_details_dto(data):
     )
 
 
+@login_required()
 @api_view(["UPDATE"])
 def update_user_details(request):
     from market.serializers.user_serializer import UserSerializer

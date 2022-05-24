@@ -1,7 +1,9 @@
+from django.contrib.auth.decorators import login_required
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 
+@login_required()
 @api_view(["DELETE"])
 def delete_user(request, id: str):
     from market.serializers.user_serializer import UserSerializer
