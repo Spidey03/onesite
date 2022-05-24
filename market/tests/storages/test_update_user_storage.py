@@ -33,7 +33,7 @@ class TestAddSiteDetailsStorage:
         UserModelFactory.create_batch(
             size=len(USER_IDS),
             id=factory.Iterator(USER_IDS),
-            joined_at=datetime.datetime(2022, 3, 22),
+            date_joined=datetime.datetime(2022, 3, 22),
             first_name=factory.Iterator(["Steve", "Tony"])
         )
 
@@ -50,6 +50,5 @@ class TestAddSiteDetailsStorage:
         user_obj = User.objects.get(id=user_id)
         assert user_obj.first_name == user_dto.first_name
         assert user_obj.last_name == user_dto.last_name
-        assert user_obj.middle_name == user_dto.middle_name
         assert user_obj.mobile_number == user_dto.mobile_number
         assert user_obj.email == user_dto.email

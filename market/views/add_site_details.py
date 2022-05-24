@@ -1,5 +1,6 @@
 import uuid
 
+from django.contrib.auth.decorators import login_required
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
@@ -25,6 +26,7 @@ def get_site_dto(data):
     )
 
 
+@login_required()
 @api_view(['POST'])
 def add_site_details(request):
     from market.storages.site_storage_implementation import SiteStorageImplementation

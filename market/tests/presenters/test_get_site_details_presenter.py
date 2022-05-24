@@ -32,9 +32,8 @@ class TestGetSiteDetailsPresenter:
             email='codywilliams@gmail.com',
             first_name='Cody Williams',
             id='d32b2f96-93f5-4e2f-842d-d590783dc000',
-            joined_at='2022-03-22',
+            date_joined='2022-03-22',
             last_name='User Last Name 0',
-            middle_name='User Middle Name 0',
             mobile_number='9676767000'
         )
         return owner_dto
@@ -43,26 +42,24 @@ class TestGetSiteDetailsPresenter:
     def response_get_site_details(self):
         return {
             'availability': False,
-            'city': '',
-            'country': 'Country000',
-            'district': 'District000',
-            'id': 'd32b2f96-93f5-4e2f-842d-d590783dd001',
-            'is_private': True,
-            'location_coordinates': '',
-            'owner': {
-                'email': 'codywilliams@gmail.com',
-                'first_name': 'Cody Williams',
-                'id': 'd32b2f96-93f5-4e2f-842d-d590783dc000',
-                'joined_at': '2022-03-22',
-                'last_name': 'User Last Name 0',
-                'middle_name': 'User Middle Name 0',
-                'mobile_number': '9676767000'
-            },
-            'price': 487.059109240635,
-            'state': 'State000',
-            'street_name': '',
-            'type': 'Site',
-            'village': ''
+             'city': '',
+             'country': 'Country000',
+             'district': 'District000',
+             'id': 'd32b2f96-93f5-4e2f-842d-d590783dd001',
+             'is_private': True,
+             'location_coordinates': '',
+             'owner': {'date_joined': '2022-03-22',
+                       'email': 'codywilliams@gmail.com',
+                       'first_name': 'Cody Williams',
+                       'id': 'd32b2f96-93f5-4e2f-842d-d590783dc000',
+                       'last_name': 'User Last Name 0',
+                       'mobile_number': '9676767000',
+                       'username': 'cody williams'},
+             'price': 487.059109240635,
+             'state': 'State000',
+             'street_name': '',
+             'type': 'Site',
+             'village': ''
         }
 
     def test_get_site_details(self, presenter, site_dto, owner_dto, response_get_site_details):

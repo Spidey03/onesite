@@ -1,7 +1,9 @@
+from django.contrib.auth.decorators import login_required
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 
+@login_required()
 @api_view(['GET'])
 def get_sites_bulk(request):
     from market.storages.site_storage_implementation import SiteStorageImplementation

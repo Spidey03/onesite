@@ -21,12 +21,12 @@ class UserStorageImplementation(UserStorageInterface):
     def _get_user_details_dto(user_details):
         user_dto = UserDetailsDTO(
             id=str(user_details.id),
+            username=str(user_details.username),
             first_name=user_details.first_name,
-            middle_name=user_details.middle_name,
             last_name=user_details.last_name,
             mobile_number=user_details.mobile_number,
             email=user_details.email,
-            joined_at=str(user_details.joined_at.replace(tzinfo=None))
+            date_joined=str(user_details.date_joined.replace(tzinfo=None))
         )
         return user_dto
 
@@ -54,8 +54,7 @@ class UserStorageImplementation(UserStorageInterface):
             email=user_details_dto.email,
             first_name=user_details_dto.first_name,
             last_name=user_details_dto.last_name,
-            middle_name=user_details_dto.middle_name,
-            joined_at=datetime.datetime.now(),
+            date_joined=datetime.datetime.now(),
             mobile_number=user_details_dto.mobile_number
         )
 
@@ -68,7 +67,6 @@ class UserStorageImplementation(UserStorageInterface):
         User.objects.filter(id=user_details_dto.id).update(
             first_name=user_details_dto.first_name,
             last_name=user_details_dto.last_name,
-            middle_name=user_details_dto.middle_name,
             mobile_number=user_details_dto.mobile_number,
             email=user_details_dto.email
         )

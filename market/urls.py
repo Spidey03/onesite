@@ -9,5 +9,5 @@ urlpatterns = [
     path('get_sites', views.get_sites_bulk, name="Get List of Sites"),
     path('add_site', views.add_site_details, name="Add Site Details"),
     path('add_user', views.add_user_details, name="Add User Details"),
-    path('delete_user/<str: id>', views.delete_user, name="Delete User")
+    path('delete_user/<str:id>', views.delete_user, name="Delete User")
 ]
