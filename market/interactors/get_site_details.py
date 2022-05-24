@@ -9,9 +9,7 @@ from market.interactors.storages.user_storages_interface import UserStorageInter
 
 class GetSiteInteractor:
     def __init__(
-            self,
-            site_storage: SiteStorageInterface,
-            user_storage: UserStorageInterface
+        self, site_storage: SiteStorageInterface, user_storage: UserStorageInterface
     ):
         self.site_storage = site_storage
         self.user_storage = user_storage

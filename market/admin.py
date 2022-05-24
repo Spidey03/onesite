@@ -10,13 +10,10 @@ class UserAdmin(admin.ModelAdmin):
     list_filter = ('first_name', 'last_name', 'joined_at')
     fields = (
         'id',
-        ('first_name',
-         'middle_name',
-         'last_name'
-         ),
+        ('first_name', 'middle_name', 'last_name'),
         'joined_at',
         'mobile_number',
-        'email'
+        'email',
     )
     readonly_fields = ('id',)
     empty_value_display = '-empty-'
@@ -28,17 +25,32 @@ class SiteModelAdmin(admin.ModelAdmin):
     list_filter = ('state', 'availability', 'is_private')
     fieldsets = (
         (
-            None, {
-                'fields': ('id', 'type', 'price', 'availability', 'is_private', 'owner'),
-            }
+            None,
+            {
+                'fields': (
+                    'id',
+                    'type',
+                    'price',
+                    'availability',
+                    'is_private',
+                    'owner',
+                ),
+            },
         ),
         (
-            'Location', {
-                'fields': ('street_name', 'village', 'city',
-                           'district', 'state', 'country', 'location_coordinates'
-                           )
-            }
-        )
+            'Location',
+            {
+                'fields': (
+                    'street_name',
+                    'village',
+                    'city',
+                    'district',
+                    'state',
+                    'country',
+                    'location_coordinates',
+                )
+            },
+        ),
     )
     readonly_fields = ('id',)
     empty_value_display = '-empty-'

@@ -7,8 +7,7 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
@@ -17,7 +16,10 @@ class Migration(migrations.Migration):
                 ('id', models.UUIDField(primary_key=True, serialize=False)),
                 ('first_name', models.CharField(max_length=100)),
                 ('last_name', models.CharField(blank=True, max_length=100, null=True)),
-                ('middle_name', models.CharField(blank=True, max_length=100, null=True)),
+                (
+                    'middle_name',
+                    models.CharField(blank=True, max_length=100, null=True),
+                ),
                 ('joined_at', models.DateTimeField(blank=True, null=True)),
                 ('mobile_number', models.CharField(max_length=12, unique=True)),
                 ('email', models.CharField(max_length=30, unique=True)),

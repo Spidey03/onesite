@@ -22,11 +22,23 @@ class Migration(migrations.Migration):
                 ('state', models.CharField(max_length=1000)),
                 ('country', models.CharField(max_length=1000)),
                 ('location_coordinates', models.CharField(max_length=1000)),
-                ('type', models.CharField(blank=True, choices=[('Home', 'home'), ('Site', 'site')], max_length=30)),
+                (
+                    'type',
+                    models.CharField(
+                        blank=True,
+                        choices=[('Home', 'home'), ('Site', 'site')],
+                        max_length=30,
+                    ),
+                ),
                 ('price', models.FloatField(blank=True, null=True)),
                 ('availability', models.BooleanField(default=True)),
                 ('is_private', models.BooleanField(default=False)),
-                ('owner_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='market.user')),
+                (
+                    'owner_id',
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to='market.user'
+                    ),
+                ),
             ],
         ),
     ]

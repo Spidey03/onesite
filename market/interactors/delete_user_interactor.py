@@ -5,15 +5,10 @@ from market.interactors.validation_mixin import ValidationMixin
 
 
 class DeleteUserInteractor(ValidationMixin):
-
     def __init__(self, user_storage: UserStorageInterface):
         self.user_storage = user_storage
 
-    def delete_user_wrapper(
-            self,
-            user_id: str,
-            presenter: PresenterInterface
-    ):
+    def delete_user_wrapper(self, user_id: str, presenter: PresenterInterface):
         try:
             self._delete_user(user_id=user_id)
             return presenter.user_deleted_successfully_response()

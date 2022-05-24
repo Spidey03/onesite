@@ -7,24 +7,27 @@ from market.tests.common_fixtures.reset_sequence import reset
 
 
 class TestGetSiteDetailsBulkInteractor:
-
     @pytest.fixture
     def user_storage(self):
-        from market.interactors.storages.user_storages_interface import UserStorageInterface
+        from market.interactors.storages.user_storages_interface import (
+            UserStorageInterface,
+        )
+
         storage = create_autospec(UserStorageInterface)
         return storage
 
     @pytest.fixture
     def interactor(self, user_storage):
-        from market.interactors.add_user_details_interactor import AddUserDetailsInteractor
-        return AddUserDetailsInteractor(
-            user_storage=user_storage
+        from market.interactors.add_user_details_interactor import (
+            AddUserDetailsInteractor,
         )
+
+        return AddUserDetailsInteractor(user_storage=user_storage)
 
     @pytest.fixture
     def presenter(self):
-        from market.interactors.presenters.presenter_interface \
-            import PresenterInterface
+        from market.interactors.presenters.presenter_interface import PresenterInterface
+
         presenter = create_autospec(PresenterInterface)
         return presenter
 
@@ -34,8 +37,7 @@ class TestGetSiteDetailsBulkInteractor:
         return UserDetailsDTOFactory()
 
     def test_invalid_pattern_email(
-            self, user_storage, presenter,
-            interactor, user_details_dto
+        self, user_storage, presenter, interactor, user_details_dto
     ):
         # Arrange
         user_details_dto.email = user_details_dto.first_name
@@ -43,8 +45,7 @@ class TestGetSiteDetailsBulkInteractor:
 
         # Act
         interactor.add_user_details_wrapper(
-            user_details_dto=user_details_dto,
-            presenter=presenter
+            user_details_dto=user_details_dto, presenter=presenter
         )
 
         # Assert
@@ -53,8 +54,7 @@ class TestGetSiteDetailsBulkInteractor:
         )
 
     def test_email_already_registered(
-            self, user_storage, presenter,
-            interactor, user_details_dto
+        self, user_storage, presenter, interactor, user_details_dto
     ):
         # Arrange
         user_storage.is_email_already_registered.return_value = True
@@ -62,8 +62,7 @@ class TestGetSiteDetailsBulkInteractor:
 
         # Act
         interactor.add_user_details_wrapper(
-            user_details_dto=user_details_dto,
-            presenter=presenter
+            user_details_dto=user_details_dto, presenter=presenter
         )
 
         # Assert
@@ -73,8 +72,7 @@ class TestGetSiteDetailsBulkInteractor:
         )
 
     def test_mobile_number_already_registered(
-            self, user_storage, presenter,
-            interactor, user_details_dto
+        self, user_storage, presenter, interactor, user_details_dto
     ):
         # Arrange
         user_storage.is_email_already_registered.return_value = False
@@ -83,8 +81,7 @@ class TestGetSiteDetailsBulkInteractor:
 
         # Act
         interactor.add_user_details_wrapper(
-            user_details_dto=user_details_dto,
-            presenter=presenter
+            user_details_dto=user_details_dto, presenter=presenter
         )
 
         # Assert
@@ -96,8 +93,7 @@ class TestGetSiteDetailsBulkInteractor:
         )
 
     def test_success_response(
-            self, user_storage, presenter,
-            interactor, user_details_dto
+        self, user_storage, presenter, interactor, user_details_dto
     ):
         # Arrange
         user_storage.is_email_already_registered.return_value = False
@@ -107,8 +103,7 @@ class TestGetSiteDetailsBulkInteractor:
 
         # Act
         interactor.add_user_details_wrapper(
-            user_details_dto=user_details_dto,
-            presenter=presenter
+            user_details_dto=user_details_dto, presenter=presenter
         )
 
         # Assert
@@ -118,7 +113,5 @@ class TestGetSiteDetailsBulkInteractor:
         user_storage.is_mobile_number_already_registered.assert_called_once_with(
             mobile_number=user_details_dto.mobile_number
         )
-        user_storage.add_user.assert_called_once_with(
-            user_details_dto=user_details_dto
-        )
+        user_storage.add_user.assert_called_once_with(user_details_dto=user_details_dto)
         presenter.add_user_details_success_response.assert_called_once()

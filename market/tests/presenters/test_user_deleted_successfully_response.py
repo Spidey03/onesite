@@ -5,6 +5,7 @@ class TestDeleteUserSuccessfullyResponse:
     @pytest.fixture
     def presenter(self):
         from market.presenters.presenter_implementation import PresenterImplementation
+
         return PresenterImplementation()
 
     def test_user_deleted_successfully_response(self, presenter):
@@ -12,7 +13,7 @@ class TestDeleteUserSuccessfullyResponse:
         expected_response = {
             'res_status': 'USER_DELETE_SUCCESSFULLY',
             'response': 'User account removed successfully',
-            'status_code': 200
+            'status_code': 200,
         }
         # Act
         response = presenter.user_deleted_successfully_response()
