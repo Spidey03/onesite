@@ -7,11 +7,11 @@ from typing import Optional
 class UserDetailsDTO:
     id: str
     first_name: str
-    mobile_number: str
+    username: str
     email: str
-    joined_at: Optional[str] = ""
-    middle_name: Optional[str] = None
+    date_joined: Optional[str] = ""
     last_name: Optional[str] = None
+    mobile_number: Optional[str] = None
 
 
 @dataclass
