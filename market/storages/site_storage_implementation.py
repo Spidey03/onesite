@@ -2,14 +2,13 @@ from typing import List
 
 from market.exceptions.exceptions import SiteNotFoundException
 from market.interactors.storages.dtos import SiteDTO
-from market.interactors.storages.site_storages_interface \
-    import SiteStorageInterface
+from market.interactors.storages.site_storages_interface import SiteStorageInterface
 
 
 class SiteStorageImplementation(SiteStorageInterface):
-
     def get_site_details(self, site_id: str) -> SiteDTO:
         from market.models import SiteModel
+
         if not SiteModel.objects.filter(id=site_id).exists():
             raise SiteNotFoundException()
         site_obj = SiteModel.objects.get(id=site_id)
@@ -31,21 +30,22 @@ class SiteStorageImplementation(SiteStorageInterface):
             location_coordinates=site_obj.location_coordinates,
             street_name=site_obj.street_name,
             village=site_obj.village,
-            city=site_obj.city
+            city=site_obj.city,
         )
         return site_dto
 
     def get_sites_bulk(self) -> List[SiteDTO]:
         from market.models import SiteModel
+
         site_objs = SiteModel.objects.filter()
         site_dto_list = [
-            self._convert_to_site_dto(site_obj=site_obj)
-            for site_obj in site_objs
+            self._convert_to_site_dto(site_obj=site_obj) for site_obj in site_objs
         ]
         return site_dto_list
 
     def add_site_details(self, site_dto: SiteDTO):
         from market.models import SiteModel
+
         SiteModel.objects.create(
             id=site_dto.id,
             owner_id=site_dto.owner_id,
@@ -59,5 +59,5 @@ class SiteStorageImplementation(SiteStorageInterface):
             type=site_dto.type,
             price=site_dto.price,
             availability=site_dto.availability,
-            is_private=site_dto.is_private
+            is_private=site_dto.is_private,
         )

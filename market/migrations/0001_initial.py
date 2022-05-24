@@ -22,19 +22,101 @@ class Migration(migrations.Migration):
             name='User',
             fields=[
                 ('password', models.CharField(max_length=128, verbose_name='password')),
-                ('last_login', models.DateTimeField(blank=True, null=True, verbose_name='last login')),
-                ('is_superuser', models.BooleanField(default=False, help_text='Designates that this user has all permissions without explicitly assigning them.', verbose_name='superuser status')),
-                ('username', models.CharField(error_messages={'unique': 'A user with that username already exists.'}, help_text='Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.', max_length=150, unique=True, validators=[django.contrib.auth.validators.UnicodeUsernameValidator()], verbose_name='username')),
-                ('first_name', models.CharField(blank=True, max_length=150, verbose_name='first name')),
-                ('last_name', models.CharField(blank=True, max_length=150, verbose_name='last name')),
-                ('is_staff', models.BooleanField(default=False, help_text='Designates whether the user can log into this admin site.', verbose_name='staff status')),
-                ('is_active', models.BooleanField(default=True, help_text='Designates whether this user should be treated as active. Unselect this instead of deleting accounts.', verbose_name='active')),
-                ('date_joined', models.DateTimeField(default=django.utils.timezone.now, verbose_name='date joined')),
-                ('id', models.UUIDField(default=uuid.UUID('ed48c128-35cb-401b-b600-14188eb88304'), primary_key=True, serialize=False)),
+                (
+                    'last_login',
+                    models.DateTimeField(
+                        blank=True, null=True, verbose_name='last login'
+                    ),
+                ),
+                (
+                    'is_superuser',
+                    models.BooleanField(
+                        default=False,
+                        help_text='Designates that this user has all permissions without explicitly assigning them.',
+                        verbose_name='superuser status',
+                    ),
+                ),
+                (
+                    'username',
+                    models.CharField(
+                        error_messages={
+                            'unique': 'A user with that username already exists.'
+                        },
+                        help_text='Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.',
+                        max_length=150,
+                        unique=True,
+                        validators=[
+                            django.contrib.auth.validators.UnicodeUsernameValidator()
+                        ],
+                        verbose_name='username',
+                    ),
+                ),
+                (
+                    'first_name',
+                    models.CharField(
+                        blank=True, max_length=150, verbose_name='first name'
+                    ),
+                ),
+                (
+                    'last_name',
+                    models.CharField(
+                        blank=True, max_length=150, verbose_name='last name'
+                    ),
+                ),
+                (
+                    'is_staff',
+                    models.BooleanField(
+                        default=False,
+                        help_text='Designates whether the user can log into this admin site.',
+                        verbose_name='staff status',
+                    ),
+                ),
+                (
+                    'is_active',
+                    models.BooleanField(
+                        default=True,
+                        help_text='Designates whether this user should be treated as active. Unselect this instead of deleting accounts.',
+                        verbose_name='active',
+                    ),
+                ),
+                (
+                    'date_joined',
+                    models.DateTimeField(
+                        default=django.utils.timezone.now, verbose_name='date joined'
+                    ),
+                ),
+                (
+                    'id',
+                    models.UUIDField(
+                        default=uuid.UUID('ed48c128-35cb-401b-b600-14188eb88304'),
+                        primary_key=True,
+                        serialize=False,
+                    ),
+                ),
                 ('mobile_number', models.CharField(max_length=12, unique=True)),
                 ('email', models.CharField(max_length=30, unique=True)),
-                ('groups', models.ManyToManyField(blank=True, help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.', related_name='user_set', related_query_name='user', to='auth.group', verbose_name='groups')),
-                ('user_permissions', models.ManyToManyField(blank=True, help_text='Specific permissions for this user.', related_name='user_set', related_query_name='user', to='auth.permission', verbose_name='user permissions')),
+                (
+                    'groups',
+                    models.ManyToManyField(
+                        blank=True,
+                        help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.',
+                        related_name='user_set',
+                        related_query_name='user',
+                        to='auth.group',
+                        verbose_name='groups',
+                    ),
+                ),
+                (
+                    'user_permissions',
+                    models.ManyToManyField(
+                        blank=True,
+                        help_text='Specific permissions for this user.',
+                        related_name='user_set',
+                        related_query_name='user',
+                        to='auth.permission',
+                        verbose_name='user permissions',
+                    ),
+                ),
             ],
             options={
                 'verbose_name': 'user',
@@ -48,19 +130,42 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='SiteModel',
             fields=[
-                ('id', models.UUIDField(default=uuid.UUID('85c265e9-b434-498d-a4c4-45a5d210e204'), primary_key=True, serialize=False)),
+                (
+                    'id',
+                    models.UUIDField(
+                        default=uuid.UUID('85c265e9-b434-498d-a4c4-45a5d210e204'),
+                        primary_key=True,
+                        serialize=False,
+                    ),
+                ),
                 ('street_name', models.CharField(max_length=1000)),
                 ('village', models.CharField(max_length=1000)),
                 ('city', models.CharField(max_length=1000)),
                 ('district', models.CharField(max_length=1000)),
                 ('state', models.CharField(max_length=1000)),
                 ('country', models.CharField(max_length=1000)),
-                ('location_coordinates', models.CharField(blank=True, max_length=1000, null=True)),
-                ('type', models.CharField(blank=True, choices=[('Home', 'home'), ('Site', 'site')], max_length=30)),
+                (
+                    'location_coordinates',
+                    models.CharField(blank=True, max_length=1000, null=True),
+                ),
+                (
+                    'type',
+                    models.CharField(
+                        blank=True,
+                        choices=[('Home', 'home'), ('Site', 'site')],
+                        max_length=30,
+                    ),
+                ),
                 ('price', models.FloatField(blank=True, null=True)),
                 ('availability', models.BooleanField(default=True)),
                 ('is_private', models.BooleanField(default=False)),
-                ('owner', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                (
+                    'owner',
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
     ]

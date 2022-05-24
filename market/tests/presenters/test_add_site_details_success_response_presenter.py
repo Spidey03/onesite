@@ -1,12 +1,13 @@
 import pytest
 
-SITE_ID = "d32b2f96-93f5-4e2f-842d-d590783dd001"
+SITE_ID = 'd32b2f96-93f5-4e2f-842d-d590783dd001'
 
 
 class TestAddSiteResponsePresenter:
     @pytest.fixture
     def presenter(self):
         from market.presenters.presenter_implementation import PresenterImplementation
+
         return PresenterImplementation()
 
     def test_add_site_success_response(self, presenter):
@@ -14,7 +15,7 @@ class TestAddSiteResponsePresenter:
         expected_response = {
             'res_status': 'SITE_ADDED_SUCCESSFULLY',
             'response': 'Site added successfully',
-            'status_code': 201
+            'status_code': 201,
         }
 
         # Act

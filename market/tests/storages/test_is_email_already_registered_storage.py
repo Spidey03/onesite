@@ -14,15 +14,15 @@ class TestIsEmailAlreadyRegisteredStorage:
     def users_db(self):
         reset()
         from market.tests.common_fixtures.model_factories import UserModelFactory
+
         UserModelFactory.create(
-            id="d32b2f96-93f5-4e2f-842d-d590783dc001",
-            email="jondoe@gmail.com"
+            id='d32b2f96-93f5-4e2f-842d-d590783dc001', email='jondoe@gmail.com'
         )
 
     @pytest.mark.django_db
     def test_when_email_exist(self, storage):
         # Arrange
-        email = "notexist@hotmail.com"
+        email = 'notexist@hotmail.com'
 
         # Act
         response = storage.is_email_already_registered(email=email)
@@ -33,7 +33,7 @@ class TestIsEmailAlreadyRegisteredStorage:
     @pytest.mark.django_db
     def test_when_email_not_exists(self, storage, users_db):
         # Arrange
-        email = "jondoe@gmail.com"
+        email = 'jondoe@gmail.com'
 
         # Act
         response = storage.is_email_already_registered(email=email)

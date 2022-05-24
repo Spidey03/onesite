@@ -2,20 +2,23 @@ from unittest.mock import create_autospec
 
 import pytest
 
-USER_ID = "d32b2f96-93f5-4e2f-842d-d590783dcfed"
+USER_ID = 'd32b2f96-93f5-4e2f-842d-d590783dcfed'
 
 
 class TestGetUserDetailsInteractor:
-
     @pytest.fixture
     def storage(self):
-        from market.interactors.storages.user_storages_interface import UserStorageInterface
+        from market.interactors.storages.user_storages_interface import (
+            UserStorageInterface,
+        )
+
         storage = create_autospec(UserStorageInterface)
         return storage
 
     @pytest.fixture
     def presenter(self):
         from market.interactors.presenters.presenter_interface import PresenterInterface
+
         presenter = create_autospec(PresenterInterface)
         return presenter
 
@@ -34,20 +37,18 @@ class TestGetUserDetailsInteractor:
         presenter_expected_response = {
             'res_status': 'USER_NOT_FOUND_EXCEPTION',
             'response': f'User not found with id: {USER_ID}',
-            'status_code': 400
+            'status_code': 400,
         }
         storage.get_user.side_effect = UserNotFoundException
         presenter.get_user_not_found_response.return_value = presenter_expected_response
 
         from market.interactors.get_user_details import GetUserDetailsInteractor
-        interactor = GetUserDetailsInteractor(
-            storage=storage
-        )
+
+        interactor = GetUserDetailsInteractor(storage=storage)
 
         # Act
         response = interactor.get_user_details_wrapper(
-            user_id=USER_ID,
-            presenter=presenter
+            user_id=USER_ID, presenter=presenter
         )
 
         # Assert
@@ -69,14 +70,12 @@ class TestGetUserDetailsInteractor:
         presenter.get_user_details.return_value = presenter_expected_response
 
         from market.interactors.get_user_details import GetUserDetailsInteractor
-        interactor = GetUserDetailsInteractor(
-            storage=storage
-        )
+
+        interactor = GetUserDetailsInteractor(storage=storage)
 
         # Act
         response = interactor.get_user_details_wrapper(
-            user_id=USER_ID,
-            presenter=presenter
+            user_id=USER_ID, presenter=presenter
         )
 
         # Assert

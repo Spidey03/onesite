@@ -6,12 +6,16 @@ from market.tests.common_fixtures.reset_sequence import reset
 class TestAddSiteDetailsStorage:
     @pytest.fixture
     def storage(self):
-        from market.storages.user_storage_implementation import UserStorageImplementation
+        from market.storages.user_storage_implementation import (
+            UserStorageImplementation,
+        )
+
         return UserStorageImplementation()
 
     @pytest.fixture
     def user_dto(self):
         from market.tests.common_fixtures.factories import UserDetailsDTOFactory
+
         reset()
         user_dto = UserDetailsDTOFactory.create()
         return user_dto
@@ -26,4 +30,5 @@ class TestAddSiteDetailsStorage:
 
         # Assert
         from market.models import User
+
         assert User.objects.filter(id=user_id).exists() is True
