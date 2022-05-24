@@ -5,7 +5,6 @@ from market.interactors.storages.dtos import UserDetailsDTO, SiteDTO
 
 
 class PresenterInterface(abc.ABC):
-
     @abc.abstractmethod
     def get_user_details(self, user_details_dto: UserDetailsDTO):
         pass
@@ -24,9 +23,7 @@ class PresenterInterface(abc.ABC):
 
     @abc.abstractmethod
     def get_sites_bulk_response(
-            self,
-            site_dto_list: List[SiteDTO],
-            owner_dto_list: List[UserDetailsDTO]
+        self, site_dto_list: List[SiteDTO], owner_dto_list: List[UserDetailsDTO]
     ):
         pass
 

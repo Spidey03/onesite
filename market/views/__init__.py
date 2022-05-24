@@ -12,5 +12,5 @@ __all__ = [
     'add_site_details',
     'add_user_details',
     'get_profile',
-    'delete_user'
+    'delete_user',
 ]

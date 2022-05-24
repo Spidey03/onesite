@@ -8,10 +8,7 @@ class GetUserDetailsInteractor:
     def __init__(self, storage: UserStorageInterface):
         self.storage = storage
 
-    def get_user_details_wrapper(
-            self, user_id: str,
-            presenter: PresenterInterface
-    ):
+    def get_user_details_wrapper(self, user_id: str, presenter: PresenterInterface):
         try:
             user_details_dto = self._get_user_details(user_id=user_id)
             return presenter.get_user_details(user_details_dto=user_details_dto)

@@ -16,12 +16,13 @@ class TestCheckUserExistsStaorage:
     def users_db(self):
         reset()
         from market.tests.common_fixtures.model_factories import UserModelFactory
-        UserModelFactory.create(id="d32b2f96-93f5-4e2f-842d-d590783dc001")
+
+        UserModelFactory.create(id='d32b2f96-93f5-4e2f-842d-d590783dc001')
 
     @pytest.mark.django_db
     def test_when_user_not_exists(self, storage):
         # Arrange
-        user_id = "d32b2f96-93f5-4e2f-842d-d590783dc002"
+        user_id = 'd32b2f96-93f5-4e2f-842d-d590783dc002'
 
         # Act
         response = storage.check_user_exists(user_id=user_id)
@@ -32,7 +33,7 @@ class TestCheckUserExistsStaorage:
     @pytest.mark.django_db
     def test_when_user_exists(self, storage, users_db):
         # Arrange
-        user_id = "d32b2f96-93f5-4e2f-842d-d590783dc001"
+        user_id = 'd32b2f96-93f5-4e2f-842d-d590783dc001'
 
         # Act
         response = storage.check_user_exists(user_id=user_id)
