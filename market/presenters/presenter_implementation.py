@@ -12,9 +12,7 @@ class PresenterImplementation(PresenterInterface):
             "user_id": user_details_dto.id,
             "first_name": user_details_dto.first_name,
             "last_name": user_details_dto.last_name,
-            "middle_name": user_details_dto.middle_name,
-            "joined_at": user_details_dto.joined_at,
-            "mobile_number": user_details_dto.mobile_number,
+            "date_joined": user_details_dto.date_joined,
             "email": user_details_dto.email
         }
 

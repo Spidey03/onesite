@@ -18,20 +18,17 @@ class TestGetUserDetails:
         return UserDetailsDTOFactory.create(
             first_name="Peter",
             last_name="",
-            middle_name="",
-            joined_at="2022-03-04 00:00:00",
+            date_joined="2022-03-04 00:00:00",
         )
 
     def test_get_user_details(self, user_details_dto, presenter):
         # Arrange
         expected_response = {
-            'user_id': 'd32b2f96-93f5-4e2f-842d-d590783dc000',
-            'first_name': 'Peter',
-            'middle_name': '',
-            'last_name': '',
-            'email': 'peter@gmail.com',
-            'mobile_number': '9676767000',
-            'joined_at': '2022-03-04 00:00:00',
+            'date_joined': '2022-03-04 00:00:00',
+             'email': 'peter@gmail.com',
+             'first_name': 'Peter',
+             'last_name': '',
+             'user_id': 'd32b2f96-93f5-4e2f-842d-d590783dc000'
         }
 
         # Act

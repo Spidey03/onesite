@@ -26,7 +26,7 @@ class TestGetUsersBulkStorage:
         UserModelFactory.create_batch(
             size=len(USER_IDS),
             id=factory.Iterator(USER_IDS),
-            joined_at=datetime.datetime(2022, 3, 22),
+            date_joined=datetime.datetime(2022, 3, 22),
             first_name=factory.Iterator(["Steve", "Tony"])
         )
 
@@ -52,7 +52,7 @@ class TestGetUsersBulkStorage:
         expected_user_details_dtos = UserDetailsDTOFactory.create_batch(
                 size=len(USER_IDS),
                 id=factory.Iterator(USER_IDS),
-                joined_at=str(datetime.datetime(2022, 3, 22)),
+                date_joined=str(datetime.datetime(2022, 3, 22)),
                 first_name=factory.Iterator(["Steve", "Tony"])
             )
 

@@ -20,7 +20,7 @@ class TestGetUserDetailsStorage:
         from market.tests.common_fixtures.model_factories import UserModelFactory
         UserModelFactory.create(
             id="d32b2f96-93f5-4e2f-842d-d590783dcfeb",
-            joined_at=datetime.datetime(2022, 3, 22),
+            date_joined=datetime.datetime(2022, 3, 22),
             first_name="Steve"
         )
 
@@ -39,7 +39,7 @@ class TestGetUserDetailsStorage:
         user_id = "d32b2f96-93f5-4e2f-842d-d590783dcfeb"
         expected_user_details_dto = UserDetailsDTOFactory(
             id=user_id,
-            joined_at=str(datetime.datetime(2022, 3, 22)),
+            date_joined=str(datetime.datetime(2022, 3, 22)),
             first_name="Steve"
         )
 
