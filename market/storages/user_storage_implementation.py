@@ -48,6 +48,7 @@ class UserStorageImplementation(UserStorageInterface):
 
     def add_user(self, user_details_dto: AddUserDetailsDTO):
         from market.models import User
+        from django.contrib.auth.hashers import make_password
 
         user_obj = User.objects.create(
             id=user_details_dto.id,
@@ -56,7 +57,7 @@ class UserStorageImplementation(UserStorageInterface):
             mobile_number=user_details_dto.mobile_number,
             email=user_details_dto.email,
             last_name=user_details_dto.last_name,
-            password=user_details_dto.password,
+            password=make_password(user_details_dto.password),
             is_staff=user_details_dto.is_staff,
             is_active=user_details_dto.is_active,
             date_joined=datetime.datetime.now(),
