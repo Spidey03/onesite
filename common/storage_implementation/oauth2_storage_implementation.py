@@ -1,4 +1,8 @@
-from common.storage_implementation.dtos import ApplicationDTO, RefreshTokenDTO
+from common.storage_implementation.dtos import (
+    ApplicationDTO,
+    RefreshTokenDTO,
+    AccessTokenDTO,
+)
 
 
 class Oauth2StorageImplementation:
@@ -20,9 +24,9 @@ class Oauth2StorageImplementation:
                 client_type=AbstractApplication.CLIENT_CONFIDENTIAL,
                 authorization_grant_type=AbstractApplication.GRANT_PASSWORD,
             )
-            is_created = True
+            is_application_created = True
         application_dto = self._create_application_dto(application=application)
-        return application_dto, is_created
+        return application_dto, is_application_created
 
     @staticmethod
     def _create_application_dto(application):
@@ -46,6 +50,26 @@ class Oauth2StorageImplementation:
             access_token=refresh_token_obj.access_token,
             user_id=refresh_token_obj.user_id,
             revoked=refresh_token_obj.revoked,
+        )
+
+    def create_access_token(
+        self, user_id: str, application_id: str, scopes: str, expire_in_seconds: int
+    ) -> AccessTokenDTO:
+        from oauth2_provider.models import AccessToken
+
+        access_token = self._generate_token()
+        access_token_obj = AccessToken.objects.create(
+            user_id=user_id,
+            token=access_token,
+            application_id=application_id,
+            expires=expire_in_seconds,
+            scope=scopes,
+        )
+
+        return AccessTokenDTO(
+            access_token_id=access_token_obj.id,
+            token=access_token_obj.token,
+            expires=access_token_obj.expires,
         )
 
     @staticmethod
