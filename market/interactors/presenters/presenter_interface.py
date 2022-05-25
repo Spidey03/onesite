@@ -65,3 +65,7 @@ class PresenterInterface(abc.ABC):
     @abc.abstractmethod
     def weak_password_exception_response(self):
         pass
+
+    @abc.abstractmethod
+    def username_already_taken_response(self, username: str):
+        pass

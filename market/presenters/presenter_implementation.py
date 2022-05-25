@@ -172,3 +172,15 @@ class PresenterImplementation(PresenterInterface):
             'res_status': res_status,
             'status_code': http_status_code,
         }
+
+    def username_already_taken_response(self, username: str):
+        from market.constants.exception_message import USERNAME_ALREADY_TAKEN_EXCEPTION
+
+        response = USERNAME_ALREADY_TAKEN_EXCEPTION[0].format(username)
+        res_status = USERNAME_ALREADY_TAKEN_EXCEPTION[1]
+        http_status_code = StatusCode.BadRequest.value
+        return {
+            'response': response,
+            'res_status': res_status,
+            'status_code': http_status_code,
+        }

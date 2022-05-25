@@ -113,13 +113,38 @@ class TestGetSiteDetailsBulkInteractor:
             mobile_number=user_details_dto.mobile_number
         )
 
+    def test_when_username_already_taken(
+        self, user_storage, presenter, interactor, user_details_dto
+    ):
+        # Arrange
+        user_storage.is_email_already_registered.return_value = False
+        user_storage.is_mobile_number_already_registered.return_value = False
+        user_storage.check_username_already_exists.return_value = True
+
+        presenter.weak_password_exception_response.return_value = Mock()
+
+        # Act
+        interactor.add_user_details_wrapper(
+            user_details_dto=user_details_dto, presenter=presenter
+        )
+
+        # Assert
+        user_storage.is_email_already_registered.assert_called_once()
+        user_storage.is_mobile_number_already_registered.assert_called_once_with(
+            mobile_number=user_details_dto.mobile_number
+        )
+        user_storage.check_username_already_exists.assert_called_once_with(
+            username=user_details_dto.username
+        )
+        presenter.username_already_taken_response.assert_called_once_with(
+            username=user_details_dto.username
+        )
+
     def test_weak_password(self, user_storage, presenter, interactor, user_details_dto):
         # Arrange
         user_storage.is_email_already_registered.return_value = False
         user_storage.is_mobile_number_already_registered.return_value = False
-        user_storage.add_user.return_value = user_details_dto.id
-        user_storage.get_user.return_value = user_details_dto
-
+        user_storage.check_username_already_exists.return_value = False
         presenter.weak_password_exception_response.return_value = Mock()
 
         # Act
@@ -142,6 +167,7 @@ class TestGetSiteDetailsBulkInteractor:
         user_details_dto.password = '1@M4tIsUWyI'
         user_storage.is_email_already_registered.return_value = False
         user_storage.is_mobile_number_already_registered.return_value = False
+        user_storage.check_username_already_exists.return_value = False
         user_storage.add_user.return_value = user_details_dto.id
         user_storage.get_user.return_value = user_details_dto
 

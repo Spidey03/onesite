@@ -24,3 +24,7 @@ class MobileNumberAlreadyRegisteredException(Exception):
 
 class UserNotExistsException(Exception):
     pass
+
+
+class UsernameAlreadyTakenException(Exception):
+    pass

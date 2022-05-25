@@ -36,3 +36,7 @@ class UserStorageInterface(abc.ABC):
     @abc.abstractmethod
     def delete_user(self, user_id):
         pass
+
+    @abc.abstractmethod
+    def check_username_already_exists(self, username: str) -> bool:
+        pass
