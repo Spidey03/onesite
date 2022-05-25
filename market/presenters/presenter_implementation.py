@@ -162,4 +162,13 @@ class PresenterImplementation(PresenterInterface):
         }
 
     def weak_password_exception_response(self):
-        pass
+        from market.constants.exception_message import WEAK_PASSWORD_EXCEPTION
+
+        response = WEAK_PASSWORD_EXCEPTION[0]
+        res_status = WEAK_PASSWORD_EXCEPTION[1]
+        http_status_code = StatusCode.BadRequest.value
+        return {
+            'response': response,
+            'res_status': res_status,
+            'status_code': http_status_code,
+        }

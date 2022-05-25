@@ -113,9 +113,7 @@ class TestGetSiteDetailsBulkInteractor:
             mobile_number=user_details_dto.mobile_number
         )
 
-    def test_weak_password(
-        self, oauth, user_storage, presenter, interactor, user_details_dto
-    ):
+    def test_weak_password(self, user_storage, presenter, interactor, user_details_dto):
         # Arrange
         user_storage.is_email_already_registered.return_value = False
         user_storage.is_mobile_number_already_registered.return_value = False
@@ -134,11 +132,7 @@ class TestGetSiteDetailsBulkInteractor:
         user_storage.is_mobile_number_already_registered.assert_called_once_with(
             mobile_number=user_details_dto.mobile_number
         )
-        user_storage.add_user.assert_called_once_with(user_details_dto=user_details_dto)
-        user_storage.get_user.assert_called_once_with(user_id=user_details_dto.id)
-        presenter.weak_password_exception_response.assert_called_once_with(
-            user_dto=user_details_dto, auth_token_dto=token_dto
-        )
+        presenter.weak_password_exception_response.assert_called_once()
 
     @patch.object(Oauth2Service, 'create_auth_tokens', return_value=token_dto)
     def test_success_response(
