@@ -1,9 +1,20 @@
-from unittest.mock import create_autospec, Mock
+import datetime
+from unittest.mock import create_autospec, Mock, patch
 
 import pytest
 
+from common.services.oauth2_service import Oauth2Service
+from common.storage_implementation.dtos import UserAuthTokensDTO
 from market.tests.common_fixtures.factories import UserDetailsDTOFactory
 from market.tests.common_fixtures.reset_sequence import reset
+
+
+token_dto = UserAuthTokensDTO(
+    user_id='f2c8cf25-10fe-4ce6-ba8b-1ab5fd355339',
+    access_token='D5BlCiwEpQ6v7s9ykHIlgQlWSRelpt',
+    refresh_token='OksuViZaG5dGTSI04mzQNADeUbM6zw',
+    expires=datetime.datetime(2022, 5, 25, 15, 38, 46, 922544),
+)
 
 
 class TestGetSiteDetailsBulkInteractor:
@@ -30,6 +41,17 @@ class TestGetSiteDetailsBulkInteractor:
 
         presenter = create_autospec(PresenterInterface)
         return presenter
+
+    @pytest.fixture
+    def oauth2service(self):
+        from common.services.oauth2_service import Oauth2Service
+        from common.storage_implementation.oauth2_storage_implementation import (
+            Oauth2StorageImplementation,
+        )
+
+        oauth2storage = Oauth2StorageImplementation()
+        oauth2service = Oauth2Service(oauth2storage=oauth2storage)
+        return oauth2service
 
     @pytest.fixture
     def user_details_dto(self):
@@ -92,13 +114,15 @@ class TestGetSiteDetailsBulkInteractor:
             mobile_number=user_details_dto.mobile_number
         )
 
+    @patch.object(Oauth2Service, 'create_auth_tokens', return_value=token_dto)
     def test_success_response(
-        self, user_storage, presenter, interactor, user_details_dto
+        self, oauth, user_storage, presenter, interactor, user_details_dto
     ):
         # Arrange
         user_storage.is_email_already_registered.return_value = False
         user_storage.is_mobile_number_already_registered.return_value = False
         user_storage.add_user.return_value = None
+
         presenter.email_pattern_invalid_response.return_value = Mock()
 
         # Act
@@ -107,11 +131,11 @@ class TestGetSiteDetailsBulkInteractor:
         )
 
         # Assert
-        user_storage.is_email_already_registered.assert_called_once_with(
-            email=user_details_dto.email
-        )
+        user_storage.is_email_already_registered.assert_called_once()
         user_storage.is_mobile_number_already_registered.assert_called_once_with(
             mobile_number=user_details_dto.mobile_number
         )
         user_storage.add_user.assert_called_once_with(user_details_dto=user_details_dto)
-        presenter.add_user_details_success_response.assert_called_once()
+        presenter.add_user_details_success_response.assert_called_once_with(
+            auth_token_dto=token_dto
+        )

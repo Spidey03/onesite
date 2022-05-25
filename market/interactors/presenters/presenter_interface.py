@@ -1,6 +1,7 @@
 import abc
 from typing import Optional, List
 
+from common.storage_implementation.dtos import UserAuthTokensDTO
 from market.interactors.storages.dtos import UserDetailsDTO, SiteDTO
 
 
@@ -44,7 +45,7 @@ class PresenterInterface(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def add_user_details_success_response(self):
+    def add_user_details_success_response(self, auth_token_dto: UserAuthTokensDTO):
         pass
 
     @abc.abstractmethod

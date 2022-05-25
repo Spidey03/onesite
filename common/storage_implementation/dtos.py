@@ -1,3 +1,4 @@
+import datetime
 from dataclasses import dataclass
 
 
@@ -26,4 +27,4 @@ class UserAuthTokensDTO:
     user_id: str
     access_token: str
     refresh_token: str
-    expires: int
+    expires: datetime

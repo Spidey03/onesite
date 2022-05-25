@@ -1,5 +1,6 @@
 from typing import Optional, List
 
+from common.storage_implementation.dtos import UserAuthTokensDTO
 from market.constants.constants import StatusCode
 from market.interactors.presenters.presenter_interface import PresenterInterface
 from market.interactors.storages.dtos import UserDetailsDTO, SiteDTO
@@ -112,17 +113,14 @@ class PresenterImplementation(PresenterInterface):
             'status_code': http_status_code,
         }
 
-    def add_user_details_success_response(self):
-        from market.constants.exception_message import USER_DETAILS_ADDED_SUCCESSFULLY
-
-        response = USER_DETAILS_ADDED_SUCCESSFULLY[0]
-        res_status = USER_DETAILS_ADDED_SUCCESSFULLY[1]
-        http_status_code = StatusCode.Created_Success.value
-        return {
-            'response': response,
-            'res_status': res_status,
-            'status_code': http_status_code,
+    def add_user_details_success_response(self, auth_token_dto: UserAuthTokensDTO):
+        response = {
+            'user_id': auth_token_dto.user_id,
+            'access_token': auth_token_dto.access_token,
+            'refresh_token': auth_token_dto.refresh_token,
+            'expires_in': auth_token_dto.expires,
         }
+        return response
 
     def update_user_details_success_response(self):
         from market.constants.exception_message import USER_DETAILS_UPDATED_SUCCESSFULLY
