@@ -1,3 +1,5 @@
+import datetime
+
 from common.storage_implementation.dtos import (
     ApplicationDTO,
     RefreshTokenDTO,
@@ -19,7 +21,7 @@ class Oauth2StorageImplementation:
             application = Application.objects.create(
                 user_id=user_id,
                 name=application_name,
-                client_secret=settings.DEFAULT_OAUTH_CLIENT_SECRET,
+                client_secret=settings.DEFAULT_OAUTH_SECRET_KEY,
                 client_id=settings.DEFAULT_OAUTH_CLIENT_ID,
                 client_type=AbstractApplication.CLIENT_CONFIDENTIAL,
                 authorization_grant_type=AbstractApplication.GRANT_PASSWORD,
@@ -41,7 +43,7 @@ class Oauth2StorageImplementation:
         refresh_token_obj = RefreshToken.objects.create(
             user_id=user_id,
             token=refresh_token,
-            access_token=access_token_id,
+            access_token_id=access_token_id,
             application_id=application_id,
         )
 
@@ -58,11 +60,14 @@ class Oauth2StorageImplementation:
         from oauth2_provider.models import AccessToken
 
         access_token = self._generate_token()
+        expires = datetime.datetime.now() + datetime.timedelta(
+            seconds=expire_in_seconds
+        )
         access_token_obj = AccessToken.objects.create(
             user_id=user_id,
             token=access_token,
             application_id=application_id,
-            expires=expire_in_seconds,
+            expires=expires,
             scope=scopes,
         )
 
