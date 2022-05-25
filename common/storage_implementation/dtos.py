@@ -19,3 +19,11 @@ class AccessTokenDTO:
     token: str
     access_token_id: str
     expires: int
+
+
+@dataclass
+class UserAuthTokensDTO:
+    user_id: str
+    access_token: str
+    refresh_token: str
+    expires: int
