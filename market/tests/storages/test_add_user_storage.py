@@ -14,10 +14,10 @@ class TestAddSiteDetailsStorage:
 
     @pytest.fixture
     def user_dto(self):
-        from market.tests.common_fixtures.factories import UserDetailsDTOFactory
+        from market.tests.common_fixtures.factories import AddUserDetailsDTOFactory
 
         reset()
-        user_dto = UserDetailsDTOFactory.create()
+        user_dto = AddUserDetailsDTOFactory.create()
         return user_dto
 
     @pytest.mark.django_db

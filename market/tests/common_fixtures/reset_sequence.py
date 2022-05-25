@@ -4,16 +4,24 @@ def reset():
 
 
 def reset_model_factories():
-    from market.tests.common_fixtures.model_factories import UserModelFactory
-    from market.tests.common_fixtures.model_factories import SiteModelFactory
+    from market.tests.common_fixtures.model_factories import (
+        UserModelFactory,
+        SiteModelFactory,
+    )
 
     UserModelFactory.reset_sequence(0)
     SiteModelFactory.reset_sequence(0)
 
 
 def reset_dto_factories():
-    from market.tests.common_fixtures.factories import UserDetailsDTOFactory
-    from market.tests.common_fixtures.factories import SiteDTOFactory
+    from market.tests.common_fixtures.factories import (
+        UserDTOFactory,
+        UserDetailsDTOFactory,
+        AddUserDetailsDTOFactory,
+        SiteDTOFactory,
+    )
 
-    UserDetailsDTOFactory.reset_sequence(0)
+    UserDTOFactory.reset_sequence(0)
+    UserDetailsDTOFactory.reset_sequence(0, force=True)
+    AddUserDetailsDTOFactory.reset_sequence(0, force=True)
     SiteDTOFactory.reset_sequence(0)

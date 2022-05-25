@@ -1,7 +1,7 @@
 import datetime
 from typing import List
 
-from market.interactors.storages.dtos import UserDetailsDTO
+from market.interactors.storages.dtos import UserDetailsDTO, AddUserDetailsDTO
 from market.interactors.storages.user_storages_interface import UserStorageInterface
 
 
@@ -46,7 +46,7 @@ class UserStorageImplementation(UserStorageInterface):
 
         return User.objects.filter(email=email).exists()
 
-    def add_user(self, user_details_dto: UserDetailsDTO):
+    def add_user(self, user_details_dto: AddUserDetailsDTO):
         from market.models import User
 
         user_obj = User.objects.create(

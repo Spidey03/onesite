@@ -4,12 +4,26 @@ from typing import Optional
 
 
 @dataclass
-class UserDetailsDTO:
+class UserDTO:
     id: str
     first_name: str
     username: str
     email: str
-    date_joined: Optional[str] = ""
+
+
+@dataclass
+class UserDetailsDTO(UserDTO):
+    date_joined: Optional[str] = ''
+    last_name: Optional[str] = None
+    mobile_number: Optional[str] = None
+
+
+@dataclass
+class AddUserDetailsDTO(UserDTO):
+    password: str
+    is_staff: Optional[bool] = False
+    is_active: Optional[bool] = False
+    date_joined: Optional[str] = ''
     last_name: Optional[str] = None
     mobile_number: Optional[str] = None
 

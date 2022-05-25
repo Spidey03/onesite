@@ -5,9 +5,8 @@ import pytest
 
 from common.services.oauth2_service import Oauth2Service
 from common.storage_implementation.dtos import UserAuthTokensDTO
-from market.tests.common_fixtures.factories import UserDetailsDTOFactory
+from market.tests.common_fixtures.factories import AddUserDetailsDTOFactory
 from market.tests.common_fixtures.reset_sequence import reset
-
 
 token_dto = UserAuthTokensDTO(
     user_id='f2c8cf25-10fe-4ce6-ba8b-1ab5fd355339',
@@ -56,7 +55,7 @@ class TestGetSiteDetailsBulkInteractor:
     @pytest.fixture
     def user_details_dto(self):
         reset()
-        return UserDetailsDTOFactory()
+        return AddUserDetailsDTOFactory()
 
     def test_invalid_pattern_email(
         self, user_storage, presenter, interactor, user_details_dto
