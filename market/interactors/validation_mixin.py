@@ -34,3 +34,14 @@ class ValidationMixin:
         )
         if is_exists:
             raise MobileNumberAlreadyRegisteredException()
+
+    @staticmethod
+    def validate_password_pattern(password: str):
+        import re
+        from market.exceptions.exceptions import WeakPasswordException
+
+        regex = re.compile(
+            r'(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$'
+        )
+        if not re.fullmatch(regex, password):
+            raise WeakPasswordException()

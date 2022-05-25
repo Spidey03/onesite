@@ -113,14 +113,43 @@ class TestGetSiteDetailsBulkInteractor:
             mobile_number=user_details_dto.mobile_number
         )
 
-    @patch.object(Oauth2Service, 'create_auth_tokens', return_value=token_dto)
-    def test_success_response(
+    def test_weak_password(
         self, oauth, user_storage, presenter, interactor, user_details_dto
     ):
         # Arrange
         user_storage.is_email_already_registered.return_value = False
         user_storage.is_mobile_number_already_registered.return_value = False
-        user_storage.add_user.return_value = None
+        user_storage.add_user.return_value = user_details_dto.id
+        user_storage.get_user.return_value = user_details_dto
+
+        presenter.weak_password_exception_response.return_value = Mock()
+
+        # Act
+        interactor.add_user_details_wrapper(
+            user_details_dto=user_details_dto, presenter=presenter
+        )
+
+        # Assert
+        user_storage.is_email_already_registered.assert_called_once()
+        user_storage.is_mobile_number_already_registered.assert_called_once_with(
+            mobile_number=user_details_dto.mobile_number
+        )
+        user_storage.add_user.assert_called_once_with(user_details_dto=user_details_dto)
+        user_storage.get_user.assert_called_once_with(user_id=user_details_dto.id)
+        presenter.weak_password_exception_response.assert_called_once_with(
+            user_dto=user_details_dto, auth_token_dto=token_dto
+        )
+
+    @patch.object(Oauth2Service, 'create_auth_tokens', return_value=token_dto)
+    def test_success_response(
+        self, oauth, user_storage, presenter, interactor, user_details_dto
+    ):
+        # Arrange
+        user_details_dto.password = '1@M4tIsUWyI'
+        user_storage.is_email_already_registered.return_value = False
+        user_storage.is_mobile_number_already_registered.return_value = False
+        user_storage.add_user.return_value = user_details_dto.id
+        user_storage.get_user.return_value = user_details_dto
 
         presenter.email_pattern_invalid_response.return_value = Mock()
 
@@ -135,6 +164,7 @@ class TestGetSiteDetailsBulkInteractor:
             mobile_number=user_details_dto.mobile_number
         )
         user_storage.add_user.assert_called_once_with(user_details_dto=user_details_dto)
+        user_storage.get_user.assert_called_once_with(user_id=user_details_dto.id)
         presenter.add_user_details_success_response.assert_called_once_with(
-            auth_token_dto=token_dto
+            user_dto=user_details_dto, auth_token_dto=token_dto
         )

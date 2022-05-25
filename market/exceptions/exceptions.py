@@ -14,6 +14,10 @@ class EmailInvalidPatternException(Exception):
     pass
 
 
+class WeakPasswordException(Exception):
+    pass
+
+
 class MobileNumberAlreadyRegisteredException(Exception):
     pass
 

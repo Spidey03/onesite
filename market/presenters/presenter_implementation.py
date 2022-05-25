@@ -160,3 +160,6 @@ class PresenterImplementation(PresenterInterface):
             'res_status': res_status,
             'status_code': http_status_code,
         }
+
+    def weak_password_exception_response(self):
+        pass
