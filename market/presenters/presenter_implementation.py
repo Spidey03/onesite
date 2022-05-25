@@ -113,14 +113,17 @@ class PresenterImplementation(PresenterInterface):
             'status_code': http_status_code,
         }
 
-    def add_user_details_success_response(self, auth_token_dto: UserAuthTokensDTO):
-        response = {
-            'user_id': auth_token_dto.user_id,
+    def add_user_details_success_response(
+        self, user_dto: UserDetailsDTO, auth_token_dto: UserAuthTokensDTO
+    ):
+        return {
+            'user_id': user_dto.id,
+            'first_name': user_dto.first_name,
+            'last_name': user_dto.last_name,
+            'email': user_dto.email,
+            'mobile_number': user_dto.mobile_number,
             'access_token': auth_token_dto.access_token,
-            'refresh_token': auth_token_dto.refresh_token,
-            'expires_in': auth_token_dto.expires,
         }
-        return response
 
     def update_user_details_success_response(self):
         from market.constants.exception_message import USER_DETAILS_UPDATED_SUCCESSFULLY

@@ -45,7 +45,9 @@ class PresenterInterface(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def add_user_details_success_response(self, auth_token_dto: UserAuthTokensDTO):
+    def add_user_details_success_response(
+        self, user_dto: UserDetailsDTO, auth_token_dto: UserAuthTokensDTO
+    ):
         pass
 
     @abc.abstractmethod
