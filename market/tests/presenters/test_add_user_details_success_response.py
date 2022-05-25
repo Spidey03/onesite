@@ -41,6 +41,7 @@ class TestAddUserDetailsSuccessResponse:
             'last_name': 'Stark',
             'mobile_number': '9999877980',
             'user_id': 'd32b2f96-93f5-4e2f-842d-d590783dc000',
+            'username': 'ironman',
         }
         # Act
         response = presenter.add_user_details_success_response(

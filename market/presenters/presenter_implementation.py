@@ -118,6 +118,7 @@ class PresenterImplementation(PresenterInterface):
     ):
         return {
             'user_id': user_dto.id,
+            'username': user_dto.username,
             'first_name': user_dto.first_name,
             'last_name': user_dto.last_name,
             'email': user_dto.email,
