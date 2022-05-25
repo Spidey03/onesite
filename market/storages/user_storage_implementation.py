@@ -49,7 +49,7 @@ class UserStorageImplementation(UserStorageInterface):
     def add_user(self, user_details_dto: UserDetailsDTO):
         from market.models import User
 
-        User.objects.create(
+        user_obj = User.objects.create(
             id=user_details_dto.id,
             email=user_details_dto.email,
             first_name=user_details_dto.first_name,
@@ -57,6 +57,7 @@ class UserStorageImplementation(UserStorageInterface):
             date_joined=datetime.datetime.now(),
             mobile_number=user_details_dto.mobile_number,
         )
+        return user_obj.id
 
     def is_mobile_number_already_registered(self, mobile_number: str) -> bool:
         from market.models.user import User

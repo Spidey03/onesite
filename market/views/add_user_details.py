@@ -10,10 +10,10 @@ def get_user_details_dto(data):
 
     return UserDetailsDTO(
         id=str(uuid.uuid4()),
+        username=data.get('username'),
         first_name=data.get('first_name'),
         mobile_number=data.get('mobile_number'),
         email=data.get('email'),
-        middle_name=data.get('middle_name'),
         last_name=data.get('last_name'),
     )
 
