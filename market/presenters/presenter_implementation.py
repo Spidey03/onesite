@@ -113,14 +113,18 @@ class PresenterImplementation(PresenterInterface):
             'status_code': http_status_code,
         }
 
-    def add_user_details_success_response(self, auth_token_dto: UserAuthTokensDTO):
-        response = {
-            'user_id': auth_token_dto.user_id,
+    def add_user_details_success_response(
+        self, user_dto: UserDetailsDTO, auth_token_dto: UserAuthTokensDTO
+    ):
+        return {
+            'user_id': user_dto.id,
+            'username': user_dto.username,
+            'first_name': user_dto.first_name,
+            'last_name': user_dto.last_name,
+            'email': user_dto.email,
+            'mobile_number': user_dto.mobile_number,
             'access_token': auth_token_dto.access_token,
-            'refresh_token': auth_token_dto.refresh_token,
-            'expires_in': auth_token_dto.expires,
         }
-        return response
 
     def update_user_details_success_response(self):
         from market.constants.exception_message import USER_DETAILS_UPDATED_SUCCESSFULLY
@@ -152,6 +156,30 @@ class PresenterImplementation(PresenterInterface):
         response = USER_DELETE_SUCCESSFULLY[0]
         res_status = USER_DELETE_SUCCESSFULLY[1]
         http_status_code = StatusCode.Success.value
+        return {
+            'response': response,
+            'res_status': res_status,
+            'status_code': http_status_code,
+        }
+
+    def weak_password_exception_response(self):
+        from market.constants.exception_message import WEAK_PASSWORD_EXCEPTION
+
+        response = WEAK_PASSWORD_EXCEPTION[0]
+        res_status = WEAK_PASSWORD_EXCEPTION[1]
+        http_status_code = StatusCode.BadRequest.value
+        return {
+            'response': response,
+            'res_status': res_status,
+            'status_code': http_status_code,
+        }
+
+    def username_already_taken_response(self, username: str):
+        from market.constants.exception_message import USERNAME_ALREADY_TAKEN_EXCEPTION
+
+        response = USERNAME_ALREADY_TAKEN_EXCEPTION[0].format(username)
+        res_status = USERNAME_ALREADY_TAKEN_EXCEPTION[1]
+        http_status_code = StatusCode.BadRequest.value
         return {
             'response': response,
             'res_status': res_status,

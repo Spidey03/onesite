@@ -1,7 +1,7 @@
 import datetime
 from typing import List
 
-from market.interactors.storages.dtos import UserDetailsDTO
+from market.interactors.storages.dtos import UserDetailsDTO, AddUserDetailsDTO
 from market.interactors.storages.user_storages_interface import UserStorageInterface
 
 
@@ -46,16 +46,20 @@ class UserStorageImplementation(UserStorageInterface):
 
         return User.objects.filter(email=email).exists()
 
-    def add_user(self, user_details_dto: UserDetailsDTO):
+    def add_user(self, user_details_dto: AddUserDetailsDTO):
         from market.models import User
 
         user_obj = User.objects.create(
             id=user_details_dto.id,
-            email=user_details_dto.email,
+            username=user_details_dto.username,
             first_name=user_details_dto.first_name,
-            last_name=user_details_dto.last_name,
-            date_joined=datetime.datetime.now(),
             mobile_number=user_details_dto.mobile_number,
+            email=user_details_dto.email,
+            last_name=user_details_dto.last_name,
+            password=user_details_dto.password,
+            is_staff=user_details_dto.is_staff,
+            is_active=user_details_dto.is_active,
+            date_joined=datetime.datetime.now(),
         )
         return user_obj.id
 
@@ -78,3 +82,8 @@ class UserStorageImplementation(UserStorageInterface):
         from market.models import User
 
         User.objects.filter(id=user_id).delete()
+
+    def check_username_already_exists(self, username: str) -> bool:
+        from market.models import User
+
+        return User.objects.filter(username=username).exists()

@@ -6,15 +6,18 @@ from rest_framework.response import Response
 
 
 def get_user_details_dto(data):
-    from market.interactors.storages.dtos import UserDetailsDTO
+    from market.interactors.storages.dtos import AddUserDetailsDTO
 
-    return UserDetailsDTO(
+    return AddUserDetailsDTO(
         id=str(uuid.uuid4()),
         username=data.get('username'),
         first_name=data.get('first_name'),
         mobile_number=data.get('mobile_number'),
         email=data.get('email'),
         last_name=data.get('last_name'),
+        password=data.get('password', ''),
+        is_staff=data.get('is_staff', False),
+        is_active=False,
     )
 
 

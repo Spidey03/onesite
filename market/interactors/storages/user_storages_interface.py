@@ -1,7 +1,7 @@
 import abc
 from typing import List
 
-from market.interactors.storages.dtos import UserDetailsDTO
+from market.interactors.storages.dtos import UserDetailsDTO, AddUserDetailsDTO
 
 
 class UserStorageInterface(abc.ABC):
@@ -22,7 +22,7 @@ class UserStorageInterface(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def add_user(self, user_details_dto: UserDetailsDTO):
+    def add_user(self, user_details_dto: AddUserDetailsDTO):
         pass
 
     @abc.abstractmethod
@@ -35,4 +35,8 @@ class UserStorageInterface(abc.ABC):
 
     @abc.abstractmethod
     def delete_user(self, user_id):
+        pass
+
+    @abc.abstractmethod
+    def check_username_already_exists(self, username: str) -> bool:
         pass

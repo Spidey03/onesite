@@ -32,3 +32,13 @@ USER_DELETE_SUCCESSFULLY = (
     'User account removed successfully',
     'USER_DELETE_SUCCESSFULLY',
 )
+
+WEAK_PASSWORD_EXCEPTION = (
+    'A minimum 8 characters password contains a combination of uppercase and lowercase letter and number',
+    'WEAK_PASSWORD_EXCEPTION',
+)
+
+USERNAME_ALREADY_TAKEN_EXCEPTION = (
+    '{} is already registered, please try with another username',
+    'USERNAME_ALREADY_TAKEN_EXCEPTION',
+)
