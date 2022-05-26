@@ -94,4 +94,9 @@ class UserStorageImplementation(UserStorageInterface):
         return User.objects.filter(username=username).exists()
 
     def authenticate_user(self, user_dto: LoginUserDTO) -> (Union[str, None], bool):
-        pass
+        from django.contrib.auth import authenticate
+
+        u = authenticate(username=user_dto.username, password=user_dto.password)
+        user_id = str(u.id) if u else None
+
+        return user_id, bool(u)
