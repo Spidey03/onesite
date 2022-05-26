@@ -185,3 +185,12 @@ class PresenterImplementation(PresenterInterface):
             'res_status': res_status,
             'status_code': http_status_code,
         }
+
+    def username_not_found_response(self, username: str):
+        pass
+
+    def login_failed_response(self):
+        pass
+
+    def login_success_response(self, auth_token_dto: UserAuthTokensDTO):
+        pass

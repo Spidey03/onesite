@@ -52,8 +52,8 @@ class AddUserDetailsInteractor(ValidationMixin):
         self.validate_mobile_number(
             mobile_number=user_details_dto.mobile_number, user_storage=self.user_storage
         )
-        if self.user_storage.check_username_already_exists(
-            username=user_details_dto.username
+        if self.check_username_exists(
+            user_storage=self.user_storage, username=user_details_dto.username
         ):
             raise UsernameAlreadyTakenException()
         self.validate_password_pattern(password=user_details_dto.password)

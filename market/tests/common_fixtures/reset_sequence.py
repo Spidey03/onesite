@@ -19,9 +19,11 @@ def reset_dto_factories():
         UserDetailsDTOFactory,
         AddUserDetailsDTOFactory,
         SiteDTOFactory,
+        LoginUserDTOFactory,
     )
 
     UserDTOFactory.reset_sequence(0)
     UserDetailsDTOFactory.reset_sequence(0, force=True)
     AddUserDetailsDTOFactory.reset_sequence(0, force=True)
     SiteDTOFactory.reset_sequence(0)
+    LoginUserDTOFactory.reset_sequence(0)

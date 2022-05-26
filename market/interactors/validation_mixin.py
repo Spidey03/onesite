@@ -45,3 +45,9 @@ class ValidationMixin:
         )
         if not re.fullmatch(regex, password):
             raise WeakPasswordException()
+
+    @staticmethod
+    def check_username_exists(
+        user_storage: UserStorageInterface, username: str
+    ) -> bool:
+        return user_storage.check_username_already_exists(username=username)

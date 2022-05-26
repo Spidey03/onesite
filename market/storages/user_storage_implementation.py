@@ -1,7 +1,11 @@
 import datetime
-from typing import List
+from typing import List, Union
 
-from market.interactors.storages.dtos import UserDetailsDTO, AddUserDetailsDTO
+from market.interactors.storages.dtos import (
+    UserDetailsDTO,
+    AddUserDetailsDTO,
+    LoginUserDTO,
+)
 from market.interactors.storages.user_storages_interface import UserStorageInterface
 
 
@@ -88,3 +92,6 @@ class UserStorageImplementation(UserStorageInterface):
         from market.models import User
 
         return User.objects.filter(username=username).exists()
+
+    def authenticate_user(self, user_dto: LoginUserDTO) -> (Union[str, None], bool):
+        pass

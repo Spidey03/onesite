@@ -1,7 +1,11 @@
 import abc
-from typing import List
+from typing import List, Union
 
-from market.interactors.storages.dtos import UserDetailsDTO, AddUserDetailsDTO
+from market.interactors.storages.dtos import (
+    UserDetailsDTO,
+    AddUserDetailsDTO,
+    LoginUserDTO,
+)
 
 
 class UserStorageInterface(abc.ABC):
@@ -39,4 +43,8 @@ class UserStorageInterface(abc.ABC):
 
     @abc.abstractmethod
     def check_username_already_exists(self, username: str) -> bool:
+        pass
+
+    @abc.abstractmethod
+    def authenticate_user(self, user_dto: LoginUserDTO) -> (Union[str, None], bool):
         pass
