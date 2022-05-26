@@ -12,7 +12,7 @@ def get_login_user_details_dto(data):
 
 
 @api_view(['POST'])
-def add_user_details(request):
+def login(request):
     from market.storages.user_storage_implementation import UserStorageImplementation
 
     user_storage = UserStorageImplementation()
