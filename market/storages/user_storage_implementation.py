@@ -94,9 +94,14 @@ class UserStorageImplementation(UserStorageInterface):
         return User.objects.filter(username=username).exists()
 
     def authenticate_user(self, user_dto: LoginUserDTO) -> (Union[str, None], bool):
-        from django.contrib.auth import authenticate
+        from market.models import User
 
-        u = authenticate(username=user_dto.username, password=user_dto.password)
-        user_id = str(u.id) if u else None
+        user = User.objects.get(username=user_dto.username)
+        is_authenticated = user.check_password(raw_password=user_dto.password)
+        user_id = str(user.id)
 
-        return user_id, bool(u)
+        # set active status to True
+        user.is_active = True
+        user.save()
+
+        return user_id, is_authenticated

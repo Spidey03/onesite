@@ -20,12 +20,8 @@ class AddUserDetailsInteractor(ValidationMixin):
         self, user_details_dto: AddUserDetailsDTO, presenter: PresenterInterface
     ):
         try:
-            user_dto, auth_token_dto = self._add_user_details(
-                user_details_dto=user_details_dto
-            )
-            return presenter.add_user_details_success_response(
-                user_dto=user_dto, auth_token_dto=auth_token_dto
-            )
+            user_dto = self._add_user_details(user_details_dto=user_details_dto)
+            return presenter.add_user_details_success_response(user_dto=user_dto)
         except EmailInvalidPatternException:
             return presenter.email_pattern_invalid_response(
                 email=user_details_dto.email
@@ -60,15 +56,4 @@ class AddUserDetailsInteractor(ValidationMixin):
         user_id = self.user_storage.add_user(user_details_dto=user_details_dto)
         user_dto = self.user_storage.get_user(user_id=user_id)
 
-        return user_dto, self._get_auth_tokens(user_id=user_id)
-
-    @staticmethod
-    def _get_auth_tokens(user_id: str) -> UserAuthTokensDTO:
-        from common.storage_implementation.oauth2_storage_implementation import (
-            Oauth2StorageImplementation,
-        )
-        from common.services.oauth2_service import Oauth2Service
-
-        oauth2storage = Oauth2StorageImplementation()
-        oauth2service = Oauth2Service(oauth2storage=oauth2storage)
-        return oauth2service.create_auth_tokens(user_id=user_id)
+        return user_dto
