@@ -187,7 +187,16 @@ class PresenterImplementation(PresenterInterface):
         }
 
     def username_not_found_response(self, username: str):
-        pass
+        from market.constants.exception_message import USERNAME_NOT_FOUND
+
+        response = USERNAME_NOT_FOUND[0].format(username)
+        res_status = USERNAME_NOT_FOUND[1]
+        http_status_code = StatusCode.BadRequest.value
+        return {
+            'response': response,
+            'res_status': res_status,
+            'status_code': http_status_code,
+        }
 
     def login_failed_response(self):
         pass

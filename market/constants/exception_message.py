@@ -42,3 +42,8 @@ USERNAME_ALREADY_TAKEN_EXCEPTION = (
     '{} is already registered, please try with another username',
     'USERNAME_ALREADY_TAKEN_EXCEPTION',
 )
+
+USERNAME_NOT_FOUND = (
+    'Entered username not found: {}',
+    'USERNAME_NOT_FOUND',
+)
