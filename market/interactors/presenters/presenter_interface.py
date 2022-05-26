@@ -45,9 +45,7 @@ class PresenterInterface(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def add_user_details_success_response(
-        self, user_dto: UserDetailsDTO, auth_token_dto: UserAuthTokensDTO
-    ):
+    def add_user_details_success_response(self, user_dto: UserDetailsDTO):
         pass
 
     @abc.abstractmethod
@@ -68,4 +66,16 @@ class PresenterInterface(abc.ABC):
 
     @abc.abstractmethod
     def username_already_taken_response(self, username: str):
+        pass
+
+    @abc.abstractmethod
+    def username_not_found_response(self, username: str):
+        pass
+
+    @abc.abstractmethod
+    def login_failed_response(self):
+        pass
+
+    @abc.abstractmethod
+    def login_success_response(self, auth_token_dto: UserAuthTokensDTO):
         pass

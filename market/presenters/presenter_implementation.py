@@ -113,9 +113,7 @@ class PresenterImplementation(PresenterInterface):
             'status_code': http_status_code,
         }
 
-    def add_user_details_success_response(
-        self, user_dto: UserDetailsDTO, auth_token_dto: UserAuthTokensDTO
-    ):
+    def add_user_details_success_response(self, user_dto: UserDetailsDTO):
         return {
             'user_id': user_dto.id,
             'username': user_dto.username,
@@ -123,7 +121,6 @@ class PresenterImplementation(PresenterInterface):
             'last_name': user_dto.last_name,
             'email': user_dto.email,
             'mobile_number': user_dto.mobile_number,
-            'access_token': auth_token_dto.access_token,
         }
 
     def update_user_details_success_response(self):
@@ -184,4 +181,36 @@ class PresenterImplementation(PresenterInterface):
             'response': response,
             'res_status': res_status,
             'status_code': http_status_code,
+        }
+
+    def username_not_found_response(self, username: str):
+        from market.constants.exception_message import USERNAME_NOT_FOUND
+
+        response = USERNAME_NOT_FOUND[0].format(username)
+        res_status = USERNAME_NOT_FOUND[1]
+        http_status_code = StatusCode.BadRequest.value
+        return {
+            'response': response,
+            'res_status': res_status,
+            'status_code': http_status_code,
+        }
+
+    def login_failed_response(self):
+        from market.constants.exception_message import LOGIN_FAILED
+
+        response = LOGIN_FAILED[0]
+        res_status = LOGIN_FAILED[1]
+        http_status_code = StatusCode.BadRequest.value
+        return {
+            'response': response,
+            'res_status': res_status,
+            'status_code': http_status_code,
+        }
+
+    def login_success_response(self, auth_token_dto: UserAuthTokensDTO):
+        return {
+            'user_id': auth_token_dto.user_id,
+            'access_token': auth_token_dto.access_token,
+            'refresh_token': auth_token_dto.refresh_token,
+            'expires': auth_token_dto.expires,
         }

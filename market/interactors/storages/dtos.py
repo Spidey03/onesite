@@ -29,6 +29,12 @@ class AddUserDetailsDTO(UserDTO):
 
 
 @dataclass
+class LoginUserDTO:
+    username: str
+    password: str
+
+
+@dataclass
 class SiteDTO:
     id: str
     owner_id: str

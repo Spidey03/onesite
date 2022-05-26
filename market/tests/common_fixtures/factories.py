@@ -6,6 +6,7 @@ from market.interactors.storages.dtos import (
     SiteDTO,
     UserDTO,
     AddUserDetailsDTO,
+    LoginUserDTO,
 )
 
 
@@ -59,3 +60,11 @@ class SiteDTOFactory(factory.Factory):
     street_name = ''
     village = ''
     city = ''
+
+
+class LoginUserDTOFactory(factory.Factory):
+    class Meta:
+        model = LoginUserDTO
+
+    username = factory.Faker('name')
+    password = factory.Sequence(lambda n: 'password%d' % n)

@@ -42,3 +42,13 @@ USERNAME_ALREADY_TAKEN_EXCEPTION = (
     '{} is already registered, please try with another username',
     'USERNAME_ALREADY_TAKEN_EXCEPTION',
 )
+
+USERNAME_NOT_FOUND = (
+    'Entered username not found: {}',
+    'USERNAME_NOT_FOUND',
+)
+
+LOGIN_FAILED = (
+    'Either username or password are incorrect',
+    'LOGIN_FAILED',
+)

@@ -28,3 +28,11 @@ class UserNotExistsException(Exception):
 
 class UsernameAlreadyTakenException(Exception):
     pass
+
+
+class UsernameNotFoundException(Exception):
+    pass
+
+
+class LoginFailedException(Exception):
+    pass

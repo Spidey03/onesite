@@ -1,9 +1,8 @@
 import datetime
-from unittest.mock import create_autospec, Mock, patch
+from unittest.mock import create_autospec, Mock
 
 import pytest
 
-from common.services.oauth2_service import Oauth2Service
 from common.storage_implementation.dtos import UserAuthTokensDTO
 from market.tests.common_fixtures.factories import AddUserDetailsDTOFactory
 from market.tests.common_fixtures.reset_sequence import reset
@@ -159,9 +158,8 @@ class TestGetSiteDetailsBulkInteractor:
         )
         presenter.weak_password_exception_response.assert_called_once()
 
-    @patch.object(Oauth2Service, 'create_auth_tokens', return_value=token_dto)
     def test_success_response(
-        self, oauth, user_storage, presenter, interactor, user_details_dto
+        self, user_storage, presenter, interactor, user_details_dto
     ):
         # Arrange
         user_details_dto.password = '1@M4tIsUWyI'
@@ -186,5 +184,5 @@ class TestGetSiteDetailsBulkInteractor:
         user_storage.add_user.assert_called_once_with(user_details_dto=user_details_dto)
         user_storage.get_user.assert_called_once_with(user_id=user_details_dto.id)
         presenter.add_user_details_success_response.assert_called_once_with(
-            user_dto=user_details_dto, auth_token_dto=token_dto
+            user_dto=user_details_dto
         )
