@@ -199,7 +199,21 @@ class PresenterImplementation(PresenterInterface):
         }
 
     def login_failed_response(self):
-        pass
+        from market.constants.exception_message import LOGIN_FAILED
+
+        response = LOGIN_FAILED[0]
+        res_status = LOGIN_FAILED[1]
+        http_status_code = StatusCode.BadRequest.value
+        return {
+            'response': response,
+            'res_status': res_status,
+            'status_code': http_status_code,
+        }
 
     def login_success_response(self, auth_token_dto: UserAuthTokensDTO):
-        pass
+        return {
+            'user_id': auth_token_dto.user_id,
+            'access_token': auth_token_dto.access_token,
+            'refresh_token': auth_token_dto.refresh_token,
+            'expires': auth_token_dto.expires,
+        }

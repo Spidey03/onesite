@@ -1,24 +1,23 @@
 import pytest
 
 
-class TestUsernameNotFoundResponse:
+class TestLoginFailedResponse:
     @pytest.fixture
     def presenter(self):
         from market.presenters.presenter_implementation import PresenterImplementation
 
         return PresenterImplementation()
 
-    def test_username_not_found_response(self, presenter):
+    def test_login_failed_response(self, presenter):
         # Arrange
-        username = 'ironman'
         expected_response = {
-            'res_status': 'USERNAME_NOT_FOUND',
-            'response': 'Entered username not found: ironman',
+            'res_status': 'LOGIN_FAILED',
+            'response': 'Either username or password are incorrect',
             'status_code': 400,
         }
 
         # Act
-        response = presenter.username_not_found_response(username=username)
+        response = presenter.login_failed_response()
 
         # Arrange
         assert response == expected_response

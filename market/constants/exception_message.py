@@ -47,3 +47,8 @@ USERNAME_NOT_FOUND = (
     'Entered username not found: {}',
     'USERNAME_NOT_FOUND',
 )
+
+LOGIN_FAILED = (
+    'Either username or password are incorrect',
+    'LOGIN_FAILED',
+)
