@@ -51,10 +51,25 @@ class UserStorageImplementation(UserStorageInterface):
         return User.objects.filter(email=email).exists()
 
     def add_user(self, user_details_dto: AddUserDetailsDTO):
+        user_obj = self._create_user_obj(user_details_dto=user_details_dto)
+        user_obj.save()
+        return user_obj.id
+
+    def add_users_bulk(self, user_details_dto_list: List[AddUserDetailsDTO]):
+        from market.models import User
+
+        user_objs = [
+            self._create_user_obj(user_details_dto=user_details_dto)
+            for user_details_dto in user_details_dto_list
+        ]
+        User.objects.bulk_create(user_objs)
+
+    @staticmethod
+    def _create_user_obj(user_details_dto: AddUserDetailsDTO):
         from market.models import User
         from django.contrib.auth.hashers import make_password
 
-        user_obj = User.objects.create(
+        user_obj = User(
             id=user_details_dto.id,
             username=user_details_dto.username,
             first_name=user_details_dto.first_name,
@@ -66,7 +81,7 @@ class UserStorageImplementation(UserStorageInterface):
             is_active=user_details_dto.is_active,
             date_joined=datetime.datetime.now(),
         )
-        return user_obj.id
+        return user_obj
 
     def is_mobile_number_already_registered(self, mobile_number: str) -> bool:
         from market.models.user import User

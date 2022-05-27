@@ -30,6 +30,10 @@ class UserStorageInterface(abc.ABC):
         pass
 
     @abc.abstractmethod
+    def add_users_bulk(self, user_details_dto_list: List[AddUserDetailsDTO]):
+        pass
+
+    @abc.abstractmethod
     def is_mobile_number_already_registered(self, mobile_number: str) -> bool:
         pass
 
