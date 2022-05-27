@@ -24,23 +24,18 @@ def get_user_details_dto(data):
 @api_view(['POST'])
 def add_user_details(request):
     from market.serializers.user_serializer import UserSerializer
+    from market.storages.user_storage_implementation import UserStorageImplementation
+    from market.interactors.add_user_details_interactor import AddUserDetailsInteractor
+    from market.presenters.presenter_implementation import PresenterImplementation
 
     serializer = UserSerializer(data=request.data)
     if not serializer.is_valid():
         return Response(serializer.errors)
 
-    from market.storages.user_storage_implementation import UserStorageImplementation
-
     user_storage = UserStorageImplementation()
-
-    from market.interactors.add_user_details_interactor import AddUserDetailsInteractor
-
-    interactor = AddUserDetailsInteractor(user_storage=user_storage)
-
-    from market.presenters.presenter_implementation import PresenterImplementation
-
     presenter = PresenterImplementation()
 
+    interactor = AddUserDetailsInteractor(user_storage=user_storage)
     response = interactor.add_user_details_wrapper(
         user_details_dto=get_user_details_dto(request.data), presenter=presenter
     )

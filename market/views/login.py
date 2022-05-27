@@ -14,17 +14,13 @@ def get_login_user_details_dto(data):
 @api_view(['POST'])
 def login(request):
     from market.storages.user_storage_implementation import UserStorageImplementation
-
-    user_storage = UserStorageImplementation()
-
+    from market.presenters.presenter_implementation import PresenterImplementation
     from market.interactors.login_user_interactor import LoginUserInteractor
 
-    interactor = LoginUserInteractor(user_storage=user_storage)
-
-    from market.presenters.presenter_implementation import PresenterImplementation
-
+    user_storage = UserStorageImplementation()
     presenter = PresenterImplementation()
 
+    interactor = LoginUserInteractor(user_storage=user_storage)
     response = interactor.login_wrapper(
         user_dto=get_login_user_details_dto(request.data), presenter=presenter
     )

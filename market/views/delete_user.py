@@ -7,22 +7,17 @@ from rest_framework.response import Response
 @api_view(['DELETE'])
 def delete_user(request, id: str):
     from market.serializers.user_serializer import UserSerializer
+    from market.storages.user_storage_implementation import UserStorageImplementation
+    from market.presenters.presenter_implementation import PresenterImplementation
+    from market.interactors.delete_user_interactor import DeleteUserInteractor
 
     serializer = UserSerializer(data=request.data)
     if not serializer.is_valid():
         return Response(serializer.errors)
 
-    from market.storages.user_storage_implementation import UserStorageImplementation
-
     user_storage = UserStorageImplementation()
-
-    from market.interactors.delete_user_interactor import DeleteUserInteractor
-
-    interactor = DeleteUserInteractor(user_storage=user_storage)
-
-    from market.presenters.presenter_implementation import PresenterImplementation
-
     presenter = PresenterImplementation()
 
+    interactor = DeleteUserInteractor(user_storage=user_storage)
     response = interactor.delete_user_wrapper(user_id=id, presenter=presenter)
     return Response(response)

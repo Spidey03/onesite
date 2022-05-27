@@ -32,19 +32,17 @@ def get_site_dto(data):
 def add_site_details(request):
     from market.storages.site_storage_implementation import SiteStorageImplementation
     from market.storages.user_storage_implementation import UserStorageImplementation
+    from market.presenters.presenter_implementation import PresenterImplementation
+    from market.interactors.add_site_details_interactor import AddSiteDetailsInteractor
 
     site_storage = SiteStorageImplementation()
     user_storage = UserStorageImplementation()
-
-    from market.interactors.add_site_details_interactor import AddSiteDetailsInteractor
+    presenter = PresenterImplementation()
 
     interactor = AddSiteDetailsInteractor(
         site_storage=site_storage, user_storage=user_storage
     )
 
-    from market.presenters.presenter_implementation import PresenterImplementation
-
-    presenter = PresenterImplementation()
     serializer = SiteSerializer(data=request.data)
     if serializer.is_valid():
         site_dto = get_site_dto(request.data)
