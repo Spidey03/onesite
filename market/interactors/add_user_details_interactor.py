@@ -1,4 +1,3 @@
-from common.storage_implementation.dtos import UserAuthTokensDTO
 from market.exceptions.exceptions import (
     EmailAlreadyRegisteredException,
     EmailInvalidPatternException,
