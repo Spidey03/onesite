@@ -66,9 +66,13 @@ class PopulateUsers:
         from market.storages.user_storage_implementation import (
             UserStorageImplementation,
         )
+        from market.interactors.add_users_bulk_interactor import (
+            AddUserDetailsBulkInteractor,
+        )
 
         user_storage = UserStorageImplementation()
-        user_storage.add_users_bulk(user_details_dto_list=user_details_dto_list)
+        interactor = AddUserDetailsBulkInteractor(user_storage=user_storage)
+        interactor.add_user_details_bulk(user_details=user_details_dto_list)
 
 
 if __name__ == '__main__':
