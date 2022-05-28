@@ -6,7 +6,7 @@ from market.models import User, SiteModel
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('id', 'first_name', 'last_name', 'is_staff')
+    list_display = ('id', 'username', 'full_name', 'date_joined', 'is_staff')
     list_filter = ('is_staff', 'date_joined')
     fields = (
         'id',
@@ -20,7 +20,9 @@ class UserAdmin(admin.ModelAdmin):
             'is_active',
         ),
     )
+    ordering = ('username', 'date_joined')
     readonly_fields = ('id',)
+
     empty_value_display = '-empty-'
 
 
