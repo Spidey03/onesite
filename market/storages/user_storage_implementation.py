@@ -51,10 +51,25 @@ class UserStorageImplementation(UserStorageInterface):
         return User.objects.filter(email=email).exists()
 
     def add_user(self, user_details_dto: AddUserDetailsDTO):
+        user_obj = self._create_user_obj(user_details_dto=user_details_dto)
+        user_obj.save()
+        return user_obj.id
+
+    def add_users_bulk(self, user_details_dto_list: List[AddUserDetailsDTO]):
+        from market.models import User
+
+        user_objs = [
+            self._create_user_obj(user_details_dto=user_details_dto)
+            for user_details_dto in user_details_dto_list
+        ]
+        User.objects.bulk_create(user_objs)
+
+    @staticmethod
+    def _create_user_obj(user_details_dto: AddUserDetailsDTO):
         from market.models import User
         from django.contrib.auth.hashers import make_password
 
-        user_obj = User.objects.create(
+        user_obj = User(
             id=user_details_dto.id,
             username=user_details_dto.username,
             first_name=user_details_dto.first_name,
@@ -66,7 +81,7 @@ class UserStorageImplementation(UserStorageInterface):
             is_active=user_details_dto.is_active,
             date_joined=datetime.datetime.now(),
         )
-        return user_obj.id
+        return user_obj
 
     def is_mobile_number_already_registered(self, mobile_number: str) -> bool:
         from market.models.user import User
@@ -105,3 +120,26 @@ class UserStorageImplementation(UserStorageInterface):
         user.save()
 
         return user_id, is_authenticated
+
+    def validate_email_already_exist_bulk(self, email_list: List[str]) -> List[str]:
+        from market.models import User
+
+        user_objs = User.objects.filter(email__in=email_list)
+        return list(set(email_list) - set([user_obj.email for user_obj in user_objs]))
+
+    def validate_mobile_number_already_exist_bulk(
+        self, mobile_numbers: List[str]
+    ) -> List[str]:
+        from market.models import User
+
+        user_objs = User.objects.filter(mobile_number__in=mobile_numbers)
+        return list(
+            set(mobile_numbers)
+            - set([user_obj.mobile_number for user_obj in user_objs])
+        )
+
+    def validate_username_already_exist_bulk(self, usernames: List[str]) -> List[str]:
+        from market.models import User
+
+        user_objs = User.objects.filter(username__in=usernames)
+        return list(set(usernames) - set([user_obj.username for user_obj in user_objs]))
