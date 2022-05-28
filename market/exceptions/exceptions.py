@@ -15,6 +15,9 @@ class EmailInvalidPatternException(Exception):
 
 
 class WeakPasswordException(Exception):
+    def __str__(self):
+        return 'Weak password: A minimum 8 characters password contains a combination of uppercase and lowercase letter and number'
+
     pass
 
 

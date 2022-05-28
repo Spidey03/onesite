@@ -52,3 +52,17 @@ class UserStorageInterface(abc.ABC):
     @abc.abstractmethod
     def authenticate_user(self, user_dto: LoginUserDTO) -> (Union[str, None], bool):
         pass
+
+    @abc.abstractmethod
+    def validate_email_already_exist_bulk(self, email_list: List[str]) -> List[str]:
+        pass
+
+    @abc.abstractmethod
+    def validate_mobile_number_already_exist_bulk(
+        self, mobile_numbers: List[str]
+    ) -> List[str]:
+        pass
+
+    @abc.abstractmethod
+    def validate_username_already_exist_bulk(self, usernames: List[str]) -> List[str]:
+        pass
