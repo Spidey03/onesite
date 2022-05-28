@@ -120,3 +120,26 @@ class UserStorageImplementation(UserStorageInterface):
         user.save()
 
         return user_id, is_authenticated
+
+    def validate_email_already_exist_bulk(self, email_list: List[str]) -> List[str]:
+        from market.models import User
+
+        user_objs = User.objects.filter(email__in=email_list)
+        return list(set(email_list) - set([user_obj.email for user_obj in user_objs]))
+
+    def validate_mobile_number_already_exist_bulk(
+        self, mobile_numbers: List[str]
+    ) -> List[str]:
+        from market.models import User
+
+        user_objs = User.objects.filter(mobile_number__in=mobile_numbers)
+        return list(
+            set(mobile_numbers)
+            - set([user_obj.mobile_number for user_obj in user_objs])
+        )
+
+    def validate_username_already_exist_bulk(self, usernames: List[str]) -> List[str]:
+        from market.models import User
+
+        user_objs = User.objects.filter(username__in=usernames)
+        return list(set(usernames) - set([user_obj.username for user_obj in user_objs]))
