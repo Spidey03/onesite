@@ -21,27 +21,22 @@ class PopulateUsers:
     def _get_data(self) -> DataFrame:
         import pandas as pd
 
-        data = pd.DataFrame()
-        try:
-            data = pd.read_csv(filepath_or_buffer=self.file_path)
-            data.replace(np.nan, '', inplace=True)
-            data = data.astype(
-                {
-                    'id': str,
-                    'username': str,
-                    'email': str,
-                    'first_name': str,
-                    'last_name': str,
-                    'mobile_number': str,
-                    'is_staff': bool,
-                    'is_active': bool,
-                    'password': str,
-                }
-            )
-        except FileNotFoundError as fne:
-            print(f'Got error, While trying read file: {fne}')
-        finally:
-            return data
+        data = pd.read_csv(filepath_or_buffer=self.file_path)
+        data.replace(np.nan, '', inplace=True)
+        data = data.astype(
+            {
+                'id': str,
+                'username': str,
+                'email': str,
+                'first_name': str,
+                'last_name': str,
+                'mobile_number': str,
+                'is_staff': bool,
+                'is_active': bool,
+                'password': str,
+            }
+        )
+        return data
 
     def _create_user_dtos(self, data) -> List[AddUserDetailsDTO]:
         return [self._create_dto(row) for index, row in data.iterrows()]

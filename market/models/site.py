@@ -1,6 +1,5 @@
 from django.db import models
 
-from market.common import get_uuid
 from market.constants.constants import SITE_TYPE
 
 
