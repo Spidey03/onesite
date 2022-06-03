@@ -115,7 +115,6 @@ class DBActionAdmin(admin.ModelAdmin):
 
     def get_readonly_fields(self, request, obj=None):
         if obj:
-            return []
-            # return ['name', 'status', 'message']
+            return ['name', 'status', 'message']
         else:
             return []
