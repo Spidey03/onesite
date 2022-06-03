@@ -39,7 +39,7 @@ class TestValidateEmailAlreadyExistBulk:
         valid_emails = storage.validate_email_already_exist_bulk(email_list=emails)
 
         # Assert
-        assert valid_emails == expected_response
+        assert list(set(valid_emails)) == list(set(expected_response))
 
     @pytest.mark.django_db
     def test_validate_email_already_exist_bulk(self, storage, user_db):
