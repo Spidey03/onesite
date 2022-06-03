@@ -12,31 +12,23 @@ def get_user_details_dto(data):
         mobile_number=data.get('mobile_number'),
         email=data.get('email'),
         last_name=data.get('last_name'),
+        username=data.get('username'),
     )
 
 
 @login_required()
 @api_view(['UPDATE'])
 def update_user_details(request):
-    from market.serializers.user_serializer import UserSerializer
-
-    serializer = UserSerializer(data=request.data)
-    if not serializer.is_valid():
-        return Response(serializer.errors)
 
     from market.storages.user_storage_implementation import UserStorageImplementation
-
-    user_storage = UserStorageImplementation()
-
+    from market.presenters.presenter_implementation import PresenterImplementation
     from market.interactors.update_user_details_interactor import (
         UpdateUserDetailsInteractor,
     )
 
-    interactor = UpdateUserDetailsInteractor(user_storage=user_storage)
-
-    from market.presenters.presenter_implementation import PresenterImplementation
-
+    user_storage = UserStorageImplementation()
     presenter = PresenterImplementation()
+    interactor = UpdateUserDetailsInteractor(user_storage=user_storage)
 
     response = interactor.update_user_wrapper(
         user_details_dto=get_user_details_dto(request.data), presenter=presenter
