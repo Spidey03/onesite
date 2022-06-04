@@ -5,6 +5,7 @@ from market.views.get_site_details import get_site_details
 from market.views.get_sites_bulk import get_sites_bulk
 from market.views.get_user import get_user, get_profile
 from market.views.login import login
+from market.views.update_user_details import update_user_details
 
 
 __all__ = [
@@ -16,4 +17,5 @@ __all__ = [
     'get_profile',
     'delete_user',
     'login',
+    'update_user_details',
 ]
