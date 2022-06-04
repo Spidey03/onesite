@@ -101,7 +101,7 @@ class UserStorageImplementation(UserStorageInterface):
     def delete_user(self, user_id):
         from market.models import User
 
-        User.objects.filter(id=user_id).update(is_removed=True)
+        User.objects.filter(id=user_id).delete()
 
     def check_username_already_exists(self, username: str) -> bool:
         from market.models import User
