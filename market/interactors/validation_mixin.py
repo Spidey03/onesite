@@ -1,3 +1,5 @@
+from typing import Optional
+
 from market.interactors.storages.user_storages_interface import UserStorageInterface
 
 
@@ -51,3 +53,11 @@ class ValidationMixin:
         user_storage: UserStorageInterface, username: str
     ) -> bool:
         return user_storage.check_username_already_exists(username=username)
+
+    @staticmethod
+    def is_account_disabled(
+        user_storage: UserStorageInterface,
+        username: Optional[str] = '',
+        user_id: Optional[str] = '',
+    ):
+        return user_storage.is_account_disabled(username=username, user_id=user_id)

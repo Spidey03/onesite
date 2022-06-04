@@ -20,15 +20,22 @@ class LoginUserInteractor(ValidationMixin):
             return presenter.login_failed_response()
 
     def _login_user(self, user_dto: LoginUserDTO):
-        if not self.check_username_exists(
-            user_storage=self.user_storage, username=user_dto.username
-        ):
-            raise UsernameNotFoundException()
+        self._validate_account_with_username(user_dto)
         user_id, authenticated = self.user_storage.authenticate_user(user_dto=user_dto)
         if not authenticated:
             raise LoginFailedException()
 
         return self._get_auth_tokens(user_id=user_id)
+
+    def _validate_account_with_username(self, user_dto):
+        username_not_exists = not self.check_username_exists(
+            user_storage=self.user_storage, username=user_dto.username
+        )
+        account_disabled = self.is_account_disabled(
+            user_storage=self.user_storage, username=user_dto.username
+        )
+        if username_not_exists or account_disabled:
+            raise UsernameNotFoundException()
 
     @staticmethod
     def _get_auth_tokens(user_id: str) -> UserAuthTokensDTO:
