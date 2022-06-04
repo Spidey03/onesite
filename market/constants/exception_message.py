@@ -29,7 +29,7 @@ USER_DETAILS_UPDATED_SUCCESSFULLY = (
 USER_NOT_EXISTS = ('User not found', 'USER_NOT_EXISTS')
 
 USER_DELETE_SUCCESSFULLY = (
-    'User account removed successfully',
+    'User account removed successfully, you can recover your account when you needed',
     'USER_DELETE_SUCCESSFULLY',
 )
 

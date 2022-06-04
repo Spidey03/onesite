@@ -6,6 +6,7 @@ class User(AbstractUser):
     id = models.UUIDField(primary_key=True)
     mobile_number = models.CharField(max_length=12, unique=True)
     email = models.CharField(unique=True, max_length=30)
+    is_removed = models.BooleanField(default=False)
 
     REQUIRED_FIELDS = ['id', 'first_name', 'last_name', 'email', 'mobile_number']
 
