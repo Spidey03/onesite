@@ -17,6 +17,7 @@ class UserModelFactory(factory.django.DjangoModelFactory):
     email = factory.LazyAttribute(
         lambda o: f"{o.first_name.replace(' ', '').lower()}@gmail.com"
     )
+    is_removed = False
 
 
 class SiteModelFactory(factory.django.DjangoModelFactory):

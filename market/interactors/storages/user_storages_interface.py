@@ -1,5 +1,5 @@
 import abc
-from typing import List, Union
+from typing import List, Union, Optional
 
 from market.interactors.storages.dtos import (
     UserDetailsDTO,
@@ -47,6 +47,12 @@ class UserStorageInterface(abc.ABC):
 
     @abc.abstractmethod
     def check_username_already_exists(self, username: str) -> bool:
+        pass
+
+    @abc.abstractmethod
+    def is_account_disabled(
+        self, username: Optional[str] = '', user_id: Optional[str] = ''
+    ) -> bool:
         pass
 
     @abc.abstractmethod

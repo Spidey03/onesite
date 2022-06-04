@@ -1,5 +1,5 @@
 import datetime
-from typing import List, Union
+from typing import List, Union, Optional
 
 from market.interactors.storages.dtos import (
     UserDetailsDTO,
@@ -43,7 +43,7 @@ class UserStorageImplementation(UserStorageInterface):
     def check_user_exists(self, user_id: str):
         from market.models import User
 
-        return User.objects.filter(id=user_id).exists()
+        return User.objects.filter(id=user_id, is_removed=False).exists()
 
     def is_email_already_registered(self, email: str) -> bool:
         from market.models import User
@@ -107,6 +107,18 @@ class UserStorageImplementation(UserStorageInterface):
         from market.models import User
 
         return User.objects.filter(username=username).exists()
+
+    def is_account_disabled(
+        self, username: Optional[str] = '', user_id: Optional[str] = ''
+    ) -> bool:
+        from market.models import User
+
+        user_obj = (
+            User.objects.get(id=user_id)
+            if user_id
+            else User.objects.get(username=username)
+        )
+        return user_obj.is_removed
 
     def authenticate_user(self, user_dto: LoginUserDTO) -> (Union[str, None], bool):
         from market.models import User

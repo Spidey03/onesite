@@ -64,11 +64,34 @@ class TestLoginUserInteractor:
             username=login_user_dto.username
         )
 
+    def test_when_account_disabled(
+        self, interactor, user_storage, presenter, login_user_dto
+    ):
+        # Arrange
+        user_storage.check_username_already_exists.return_value = True
+        user_storage.is_account_disabled.return_value = True
+        presenter.login_failed_response.return_value = Mock()
+
+        # Act
+        interactor.login_wrapper(user_dto=login_user_dto, presenter=presenter)
+
+        # Assert
+        user_storage.check_username_already_exists.assert_called_once_with(
+            username=login_user_dto.username
+        )
+        user_storage.is_account_disabled.assert_called_once_with(
+            username=login_user_dto.username, user_id=''
+        )
+        presenter.username_not_found_response.assert_called_once_with(
+            username=login_user_dto.username
+        )
+
     def test_when_fields_does_not_match(
         self, interactor, user_storage, presenter, login_user_dto
     ):
         # Arrange
         user_storage.check_username_already_exists.return_value = True
+        user_storage.is_account_disabled.return_value = False
         user_storage.authenticate_user.return_value = (None, False)
         presenter.login_failed_response.return_value = Mock()
 
@@ -79,6 +102,9 @@ class TestLoginUserInteractor:
         user_storage.check_username_already_exists.assert_called_once_with(
             username=login_user_dto.username
         )
+        user_storage.is_account_disabled.assert_called_once_with(
+            username=login_user_dto.username, user_id=''
+        )
         user_storage.authenticate_user.assert_called_once_with(user_dto=login_user_dto)
         presenter.login_failed_response.assert_called_once()
 
@@ -88,6 +114,7 @@ class TestLoginUserInteractor:
     ):
         # Arrange
         user_storage.check_username_already_exists.return_value = True
+        user_storage.is_account_disabled.return_value = False
         user_storage.authenticate_user.return_value = (USER_ID, True)
         presenter.login_failed_response.return_value = Mock()
 
@@ -97,6 +124,9 @@ class TestLoginUserInteractor:
         # Assert
         user_storage.check_username_already_exists.assert_called_once_with(
             username=login_user_dto.username
+        )
+        user_storage.is_account_disabled.assert_called_once_with(
+            username=login_user_dto.username, user_id=''
         )
         user_storage.authenticate_user.assert_called_once_with(user_dto=login_user_dto)
         presenter.login_success_response.assert_called_once_with(
