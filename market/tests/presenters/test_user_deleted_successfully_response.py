@@ -12,7 +12,7 @@ class TestDeleteUserSuccessfullyResponse:
         # Arrange
         expected_response = {
             'res_status': 'USER_DELETE_SUCCESSFULLY',
-            'response': 'User account removed successfully',
+            'response': 'User account removed successfully, you can recover your account when you needed',
             'status_code': 200,
         }
         # Act

@@ -20,9 +20,9 @@ class TestDeleteUser:
         UserModelFactory.create(id='d32b2f96-93f5-4e2f-842d-d590783dc001')
 
     @pytest.mark.django_db
-    def test_delete_user(self, storage):
+    def test_delete_user(self, storage, users_db):
         # Arrange
-        user_id = 'd32b2f96-93f5-4e2f-842d-d590783dc002'
+        user_id = 'd32b2f96-93f5-4e2f-842d-d590783dc001'
 
         # Act
         response = storage.delete_user(user_id=user_id)
@@ -30,5 +30,5 @@ class TestDeleteUser:
         # Assert
         from market.models import User
 
-        is_deleted = not User.objects.filter(id=user_id).exists()
+        is_deleted = User.objects.get(id=user_id).is_removed
         assert is_deleted is True
