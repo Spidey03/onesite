@@ -21,9 +21,13 @@ class UserAdmin(admin.ModelAdmin):
         ),
     )
     ordering = ('username', 'date_joined')
-    readonly_fields = ('id',)
 
     empty_value_display = '-empty-'
+
+    def get_readonly_fields(self, request, obj=None):
+        if obj:
+            return self.readonly_fields + ('id',)
+        return self.readonly_fields
 
 
 @admin.register(SiteModel)
@@ -59,8 +63,12 @@ class SiteModelAdmin(admin.ModelAdmin):
             },
         ),
     )
-    readonly_fields = ('id',)
     empty_value_display = '-empty-'
+
+    def get_readonly_fields(self, request, obj=None):
+        if obj:
+            return self.readonly_fields + ('id',)
+        return self.readonly_fields
 
 
 def discard(modeladmin, request, queryset):
