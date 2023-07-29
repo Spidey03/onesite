@@ -16,3 +16,7 @@ class SiteStorageInterface(abc.ABC):
     @abc.abstractmethod
     def add_site_details(self, site_dto: SiteDTO):
         pass
+
+    @abc.abstractmethod
+    def is_user_owner(self, user_id: str, site_id: str) -> bool:
+        pass

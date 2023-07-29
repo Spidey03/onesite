@@ -61,3 +61,9 @@ class SiteStorageImplementation(SiteStorageInterface):
             availability=site_dto.availability,
             is_private=site_dto.is_private,
         )
+
+    def is_user_owner(self, user_id: str, site_id: str) -> bool:
+        from market.models import SiteModel
+
+        owner_id = SiteModel.objects.filter(id=site_id).values('owner__id')
+        return owner_id == user_id
