@@ -29,28 +29,31 @@ def get_site_dto(data):
 
 @login_required()
 @api_view(['POST'])
-def update_visibility_of_site(request):
+def update_visibility_of_site(request, site_id: str):
     from market.storages.site_storage_implementation import SiteStorageImplementation
     from market.storages.user_storage_implementation import UserStorageImplementation
 
     site_storage = SiteStorageImplementation()
     user_storage = UserStorageImplementation()
 
-    from market.interactors.add_site_details_interactor import AddSiteDetailsInteractor
+    from market.interactors.update_site_visibilit_interactor import (
+        UpdateSiteVisibilityInteractor,
+    )
 
-    interactor = AddSiteDetailsInteractor(
+    interactor = UpdateSiteVisibilityInteractor(
         site_storage=site_storage, user_storage=user_storage
     )
 
     from market.presenters.presenter_implementation import PresenterImplementation
 
     presenter = PresenterImplementation()
-    serializer = SiteSerializer(data=request.data)
-    if serializer.is_valid():
-        site_dto = get_site_dto(request.data)
-        response = interactor.add_site_details_wrapper(
-            site_dto=site_dto, presenter=presenter
-        )
-    else:
-        response = serializer.errors
+
+    user_id = str(request.user.id)
+    site_visibility = request.data.get('visibility', True)
+    response = interactor.update_site_visibility_wrapper(
+        site_id=site_id,
+        user_id=user_id,
+        visibility=site_visibility,
+        presenter=presenter,
+    )
     return Response(response)
