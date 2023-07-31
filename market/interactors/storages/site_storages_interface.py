@@ -24,3 +24,7 @@ class SiteStorageInterface(abc.ABC):
     @abc.abstractmethod
     def check_site_exists(self, site_id: str):
         pass
+
+    @abc.abstractmethod
+    def update_site_visibility(self, site_id: str, is_private: bool = True):
+        pass

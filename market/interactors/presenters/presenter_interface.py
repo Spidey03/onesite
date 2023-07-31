@@ -79,3 +79,11 @@ class PresenterInterface(abc.ABC):
     @abc.abstractmethod
     def login_success_response(self, auth_token_dto: UserAuthTokensDTO):
         pass
+
+    @abc.abstractmethod
+    def user_is_not_owner_of_site(self, user_id: str, site_id: str):
+        pass
+
+    @abc.abstractmethod
+    def update_site_visibility_success_response(self):
+        pass
