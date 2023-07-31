@@ -46,25 +46,29 @@ class TestGetSiteDetails:
         return site_dto
 
     @pytest.mark.django_db
-    def test_when_site_not_exists(self, storage, site_db, site_dto):
-        # Arrange
-        site_id = 'd32b2f96-93f5-4e2f-842d-d590783dd002'
-        expected_result = False
-
-        # Act
-        actual_result = storage.check_site_exists(site_id=site_id)
-
-        # Assert
-        assert actual_result is expected_result
-
-    @pytest.mark.django_db
-    def test_when_site_not_exists(self, storage, site_db, site_dto):
+    def test_update_visibility_to_private(self, storage, site_db, site_dto):
         # Arrange
         site_id = 'd32b2f96-93f5-4e2f-842d-d590783dd001'
-        expected_result = True
+        is_private = True
 
         # Act
-        actual_result = storage.check_site_exists(site_id=site_id)
+        storage.update_site_visibility(site_id=site_id, is_private=is_private)
 
         # Assert
-        assert actual_result is expected_result
+        from market.models import SiteModel
+
+        assert SiteModel.objects.get(id=site_id).is_private is is_private
+
+    @pytest.mark.django_db
+    def test_update_visibility_to_public(self, storage, site_db, site_dto):
+        # Arrange
+        site_id = 'd32b2f96-93f5-4e2f-842d-d590783dd001'
+        is_private = False
+
+        # Act
+        storage.update_site_visibility(site_id=site_id, is_private=is_private)
+
+        # Assert
+        from market.models import SiteModel
+
+        assert SiteModel.objects.get(id=site_id).is_private is is_private

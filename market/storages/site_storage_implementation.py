@@ -74,4 +74,6 @@ class SiteStorageImplementation(SiteStorageInterface):
         return SiteModel.objects.filter(id=site_id).exists()
 
     def update_site_visibility(self, site_id: str, is_private: bool = True):
-        pass
+        from market.models import SiteModel
+
+        return SiteModel.objects.filter(id=site_id).update(is_private=is_private)
