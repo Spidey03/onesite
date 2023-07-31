@@ -39,3 +39,9 @@ class UsernameNotFoundException(Exception):
 
 class LoginFailedException(Exception):
     pass
+
+
+class UserIsNotOwnerOfSite(Exception):
+    def __init__(self, site_id: str, user_id: str):
+        self.site_id = site_id
+        self.user_id = user_id

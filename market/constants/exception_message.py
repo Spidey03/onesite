@@ -52,3 +52,13 @@ LOGIN_FAILED = (
     'Either username or password are incorrect',
     'LOGIN_FAILED',
 )
+
+USER_NOT_OWNER = (
+    'User {user_id} is not the owner of the site {site_id}',
+    'USER_NOT_OWNER',
+)
+
+SITE_VISIBILITY_UPDATED_SUCCESSFULLY = (
+    'Site visibility updated successfully',
+    'SITE_VISIBILITY_UPDATED_SUCCESSFULLY',
+)
