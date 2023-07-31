@@ -22,7 +22,7 @@ class SiteStorageInterface(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def check_site_exists(self, site_id: str):
+    def check_site_exists(self, site_id: str) -> bool:
         pass
 
     @abc.abstractmethod
