@@ -20,3 +20,7 @@ class SiteStorageInterface(abc.ABC):
     @abc.abstractmethod
     def is_user_owner(self, user_id: str, site_id: str) -> bool:
         pass
+
+    @abc.abstractmethod
+    def check_site_exists(self, site_id: str):
+        pass
