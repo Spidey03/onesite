@@ -214,3 +214,29 @@ class PresenterImplementation(PresenterInterface):
             'refresh_token': auth_token_dto.refresh_token,
             'expires': auth_token_dto.expires,
         }
+
+    def user_is_not_owner_of_site(self, user_id: str, site_id: str):
+        from market.constants.exception_message import USER_NOT_OWNER
+
+        response = USER_NOT_OWNER[0].format(user_id=user_id, site_id=site_id)
+        res_status = USER_NOT_OWNER[1]
+        http_status_code = StatusCode.BadRequest.value
+        return {
+            'response': response,
+            'res_status': res_status,
+            'status_code': http_status_code,
+        }
+
+    def update_site_visibility_success_response(self):
+        from market.constants.exception_message import (
+            SITE_VISIBILITY_UPDATED_SUCCESSFULLY,
+        )
+
+        response = SITE_VISIBILITY_UPDATED_SUCCESSFULLY[0]
+        res_status = SITE_VISIBILITY_UPDATED_SUCCESSFULLY[1]
+        http_status_code = StatusCode.Success.value
+        return {
+            'response': response,
+            'res_status': res_status,
+            'status_code': http_status_code,
+        }
